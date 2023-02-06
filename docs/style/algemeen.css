@@ -1,0 +1,318 @@
+/* ipad fixes: GRMBL iOs GET YOUR ACT TOGETHER */
+/* This fixed the LONG-tap needed for hover events in main menu, which is now instantaneous. */
+/* It also fixes selection of menu text on long-tap. (And text selection for copying in general) */
+*:not(input):not(textarea)
+{
+  -webkit-user-select: none;
+ /* disable selection/Copy of UIWebView */
+  -webkit-touch-callout: none;
+ /* disable the IOS popup when long-press on a link */
+  ;
+}     
+/* This fixed the LONG-tap context menu asking you to save the image */
+img
+{
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+}
+/* Ipad fires resize event on scroll.*/
+/*https://stackoverflow.com/questions/8898412/iphone-ipad-triggering-unexpected-resize-events*/
+html, body
+{
+  height: 100%;
+  overflow: auto;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+} 
+/* this seems to stop the firing of a resize event when Ipad is being scrolled.
+/* end of ipad fixes, on with real stuff */
+
+body,html
+{
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  font-size: min(calc(12px + 1.5vh), 6vw);
+  line-height: min(calc(16px + 1.7vh), 7vw);
+  background-color: #e8e3df;
+  background-image: url("../img/texture1.png");
+}
+
+button
+{
+  font-size: calc(12px + 1.5vh);
+  line-height: calc(16px + 1.7vh);
+}
+
+#content
+{
+  background: rgba(255,255,255,0.8);
+  padding: 25px;
+  margin-top: 25px;
+  min-height: calc(100% - 100px);
+}
+/* navigatie gewoon */
+nav.mobile-navigation
+{
+  position: fixed;
+  display: none;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 8vh;
+  background-color: #ecbe93;
+  background-image: url("../img/texture2.png");
+  color: #625658;
+  text-align: right;
+  font-size: 16px;
+}
+
+nav.mobile-navigation #hide-mobile-menu
+{
+  width: 100%;
+  top: 8vh;
+  overflow: hidden;
+  position: absolute;
+  right: 0px;
+  text-align: center;
+  text-decoration: none;
+  list-style: none;
+  font-size: 4vh;
+  margin: 0 auto;
+  transition: height 0.5s;
+}
+
+nav.mobile-navigation .hide-mobile-sub
+{
+  margin: 0;
+  overflow: hidden;
+  height: 0;
+  transition: height 0.5s;
+  width: calc(100% - 35px);
+  background: #524645;
+}
+
+nav.mobile-navigation .mobile-menu-normal-item
+{
+  border: 1px solid rgba(255,255,255,0.5);
+  margin: 0px;
+  width: 100%;
+  background-color: #fae4c6;
+  height: 6vh;
+  background-image: url("../img/texture6.png");
+}
+
+nav.mobile-navigation .mobile-menu-normal-item a
+{
+  line-height: 3vh;
+  display: block;
+  width: 100%;
+  height: 3vh;
+  background: rgba(255,236,222,0.7);
+  padding: 15px;
+  text-decoration: none;
+  color: #625658;
+}
+
+nav.mobile-navigation .active a
+{
+  line-height: 4vh;
+  background-color: #524645;
+  background-image: url("../img/texture10.png");
+  color: #fff;
+}
+
+nav.mobile-navigation .mobile-menu-item-has-sub
+{
+  border: 1px solid rgba(255,255,255,0.5);
+  margin: 0px;
+  width: 350px;
+  padding: 15px;
+  padding-bottom: 20px;
+  line-height: 4vh;
+  min-height: 6vh;
+  width: 100%;
+  background-color: #fae4c6;
+  background-image: url("../img/texture6.png");
+  cursor: pointer;
+}
+
+nav.mobile-navigation .hide-mobile-sub
+{
+  margin-top: 2vh;
+}
+
+/* switch navigations */
+
+
+@media all and (max-width: 700px)
+{
+  nav.primary-navigation
+  {
+    display: none!important;
+  }
+
+  nav.mobile-navigation
+  {
+    display: block;
+  }
+}
+
+
+/* navigatie gewoon */
+nav.primary-navigation
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+  height: 8vh;
+  padding: 2px 0 2px 0;
+  text-align: center;
+  font-size: calc(12px + 1.5vh);
+  background-color: #ecbe93;
+  background-image: url("../img/texture2.png");
+  color: #625658;
+}
+
+nav.primary-navigation ul li
+{
+  list-style: none;
+  margin: 0 auto;
+  border-left: 1px solid rgba(255,255,255,0.5);
+  display: inline-block;
+  padding: 0 30px;
+  position: relative;
+  text-decoration: none;
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 900px;
+}
+
+nav.primary-navigation ul li:first-child
+{
+  border-left: none;
+}
+
+nav.primary-navigation li.active
+{
+  font-weight: 600;
+  color: #625658;
+}
+
+nav.primary-navigation li a
+{
+  transition: all 1s;
+  text-decoration: none;
+  color: #625658;
+}
+
+nav.primary-navigation li a:hover
+{
+  color: #000;
+}
+
+nav.primary-navigation li:hover
+{
+  cursor: pointer;
+}
+
+nav.primary-navigation ul li ul
+{
+  visibility: hidden;
+  opacity: 0;
+  display: none;
+  position: absolute;
+  padding-left: 0;
+  padding-right: 25px;
+  left: 0;
+  background-color: #fae4c6;
+  background-image: url("../img/texture5.png");
+  min-width: 250px;
+  text-align: left;
+  padding-top: 20px;
+  box-shadow: 0px 3px 5px -1px #ccc;
+}
+
+/* this will be done with a CLICK!
+nav.primary-navigation ul li:hover > ul,
+nav.primary-navigation ul li ul:hover
+{
+  visibility: visible;
+  opacity: 1;
+  display: block;
+  min-width: 250px;
+  text-align: left;
+  padding-top: 20px;
+  box-shadow: 0px 3px 5px -1px #ccc;
+}
+*/
+
+nav.primary-navigation ul li ul li
+{
+  clear: both;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+  width: 100%;
+  text-align: left;
+  margin-bottom: 20px;
+  border-style: none;
+}
+
+nav.primary-navigation ul li ul li a:hover
+{
+  padding-left: 10px;
+  transition: all 0.3s ease;
+}
+/* layout stuff */
+p
+{
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+a
+{
+  text-decoration: none;
+  color: inherit;
+}
+
+.columns50
+{
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+             /*  vertically center    */
+  justify-content: center;
+         /*  horizontally center  */
+  ;
+}
+
+#footer
+{
+  min-height: 50px;
+  line-height: 50px;
+  background-image: url("../img/texture9.png");
+  color: #008;
+  text-align: center;
+}
+
+/* making things responsive */
+@media all and (max-width: 700px)
+{
+  .columns50
+  {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 720px)
+{
+  .hide-in-smaller-than-720
+  {
+    display: none;
+  }
+}
