@@ -1,0 +1,364 @@
+<!doctype html>
+<html>
+<body>
+  <canvas id="test"></canvas><br>
+  <p id="frame"></p>-  we make some shapes, colors, then some curls.. just wait, if you don´t like what you see, hit refresh...
+  <script>
+  var step=0;
+  var framedom=document.getElementById("frame");
+    var canvas=document.getElementById("test");
+    canvas.width=1000;
+    canvas.height=500;
+    canvas.style.width="100%";
+    var total=Date.now();
+    var f1=412.1+10*Math.random(),f2=412.1+10*Math.random(),f3=412.1+10*Math.random();
+    var ctx=canvas.getContext("2d");
+    var frame=5000+5000*Math.random();
+    var operations=["source-over","lighter","multiply","multiply","multiply","multiply","screen","overlay","destination-out","destination-out","darken","lighten","color-dodge","color-burn","hard-light","soft-light","hard-light","overlay","overlay","soft-light","difference","exclusion","hue","saturation","color","luminosity"];
+    var part=[],frame=Math.random()*65000;
+    var random_int=[];
+    var now=Date.now();
+    
+
+    
+    for(var i=0;i<10000;i++)
+    {
+      random_int.push(Math.floor(Math.random()*10000));
+    }
+//    console.log(random_int);
+//    setTimeout(createFlames,200);
+
+  // put some color on the canvas..
+    for(var i=0;i<2000;i++)
+    {
+      ctx.fillStyle="rgb("+Math.random()*256+","+Math.random()*256+","+Math.random()*256+")";
+      ctx.fillRect(-250+Math.random()*canvas.width,-250+Math.random()*canvas.height,500,500);
+    }
+  
+    setTimeout(initCreateCurls,200);
+
+
+    function createFlames()
+    {
+      step++;
+      frame++;
+      if(Math.random<0.01) frame+=Math.floor(Math.random()*200);
+      var now2=Date.now();
+      var dt=now2-now;
+      now=now2;
+      framedom.innerHTML="flames: "+part.length+", steps: "+step+" frame: "+Math.floor(frame)+", fps: "+Math.floor(1000/dt);
+   //  ctx.clearRect(0,0,canvas.width,canvas.height);
+      // particle burst?
+      if(part.length<13 && Math.random()<0.1)
+      {
+        
+        var aantal=Math.random()*5;
+        
+          for(var p=0;p<aantal;p++)
+          {
+            // create particle
+            var o={};
+            o.cx=canvas.width/2;
+            o.cy=canvas.height/2;
+            o.cs=canvas.width/4;
+            if(part.lenght<3 && Math.random()<0.9)
+            {
+              // stain.
+              o.cx=Math.random()*canvas.width;
+              o.cy=Math.random()*canvas.height;
+              o.cs=Math.random()*canvas.height/25;
+            }
+            o.first_x=Math.random()*canvas.width;
+            o.first_y=Math.random()*canvas.height;
+  
+            o.scale=[];
+            o.trans=[];
+            o.cscale=[]; // center
+            o.ctrans=[];
+            o.dscale=[];// offset
+            o.dtrans=[];
+            o.fscale=[];// frequency
+            o.ftrans=[];
+            o.ascale=[];// amplitude
+            o.atrans=[];
+  
+            for(var t=0;t<150;t++)
+            {
+              o.scale.push(Math.random()*0.3+0.1);
+              o.trans.push(2-4*Math.random());
+              o.ascale.push(Math.random()*0.5);
+              o.atrans.push(Math.random()*0.5);
+              o.cscale.push(Math.random()*0.4+0.01);
+              o.ctrans.push(3-6*Math.random());
+              o.dscale.push(Math.random()*Math.PI*2 );
+              o.dtrans.push(Math.random()*Math.PI*2 );
+              o.fscale.push(Math.random()*0.01+0.0001);
+              o.ftrans.push(Math.random()*0.01+0.0001);
+            }
+            
+            o.f1=Math.floor(Math.random()*16);
+            o.f2=Math.floor(Math.random()*16);
+            o.f3=Math.floor(Math.random()*16);
+            o.f4=Math.floor(Math.random()*16);
+            
+            o.first_s=10+Math.random()*10;
+            o.first_rot=Math.random()*Math.PI*2;
+            o.r=Math.sin(3+part.length/13+frame/f1)*128+128;
+            o.g=Math.sin(4+part.length/15+frame/f2)*128+128;
+            o.b=Math.sin(5+part.length/17+frame/f3)*128+128;
+            o.ta=Math.random()*0.1;
+            o.a=0;
+            o.furriness=1+Math.random()*Math.random()*Math.random()*5;
+            o.lineWidth=1+Math.random()*Math.random()*Math.random()*5;
+            o.l=550+200*Math.random();
+            o.operation=operations[Math.floor(Math.random()*operations.length)];
+            part.push(o);
+           // console.log(JSON.stringify(o,null,2));
+          }
+      }
+      frame++;
+//      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(var i=part.length-1;i>=0;i--)
+      {
+          o=part[i];
+          o.l--
+          if(o.l>500 && o.a<o.ta) o.a+=0.001;
+          ctx.lineWidth=o.lineWidth;
+          
+          o.x=o.first_x;
+          o.y=o.first_y;
+          o.rot=o.first_rot;
+          o.s=o.first_s;
+          ctx.save();
+          ctx.globalCompositeOperation=o.operation;
+          ctx.strokeStyle="rgba("+o.r+","+o.g+","+o.b+","+o.a+")";
+          ctx.beginPath()
+
+          for(var t=0;t<2000;t++)
+          {
+            var r=random_int[(t)%random_int.length]%14;
+//            console.log(r);
+//            r=Math.floor(Math.random()*5);
+            var nr=r*10;
+            var p=o.x;
+            var q=o.y;
+            var k=o.s;
+            var l=o.rot;
+            
+            o.x=p*o.scale[nr+0]+o.trans[nr+0]+0.1*(q*o.scale[nr+1]-o.trans[nr+1]+l*o.scale[nr+2]-o.trans[nr+2]);
+            o.y=q*o.scale[nr+3]+o.trans[nr+3]+0.1*(p*o.scale[nr+4]-o.trans[nr+4]+k*o.scale[nr+5]-o.trans[nr+5]);
+            o.s=k*o.scale[nr+6]+o.trans[nr+6]+l*o.scale[nr+7]+o.trans[nr+7];
+            o.rot=l*o.scale[nr+8]+o.trans[nr+8]+k*o.scale[nr+9]+o.trans[nr+9];
+//            console.log(o);
+            if(t>30)
+            {
+              var x=o.cx+o.x*o.cs;
+              var y=o.cy+o.y*o.cs;
+              var s=o.s*o.furriness;
+              var rot=o.rot+o.f1;
+              var dx=Math.sin(rot);
+              var dy=Math.cos(rot);
+              var scale=Math.abs(o.s*25);
+    //          ctx.save();
+              ctx.moveTo(x-s*dx,y-s*dy); // just a dot now.
+              ctx.lineTo(x+s*dx,y+s*dy); // just a dot now.
+            }
+          }
+          ctx.stroke();
+
+          ctx.restore();
+          // we want to move the attractor a bit in due time, first let´s get an attractor!
+          // move the s and t very slightly
+          for(var t=0;t<o.scale.length;t++)
+          {
+            o.scale[t]=o.cscale[t]+Math.sin(o.dscale[t]+o.fscale[t]*frame)*o.ascale[t];
+            o.trans[t]=o.ctrans[t]+Math.sin(o.dtrans[t]+o.ftrans[t]*frame)*o.ascale[t];
+          }
+          
+/*            ctx.globalCompositeOperation=o.operation;
+            var grd=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.s);
+            grd.addColorStop(0,"rgba("+cr+","+cg+","+cb+","+o.a+")");
+            grd.addColorStop(0.5,"rgba("+cr+","+cg+","+cb+","+ca*0.9+")");
+            grd.addColorStop(1,"rgba("+cr+","+cg+","+cb+",0)");
+            ctx.fillStyle=grd;
+            ctx.fillRect(o.x-o.s,o.y-o.s,o.s,o.s*2);
+*/
+//           ctx.restore();
+          
+          // delete if too old and alpa depleted
+          if(o.l<500)
+          {
+            o.a-=0.01;
+            if(o.a<=0)
+             part.splice(i,1); // delete
+          }
+      }
+      ctx.save();
+      ctx.globalAlpha=0.1;
+      for(var i=0;i<5;i++)
+      {
+        var r=Math.random()*Math.PI*2;
+        var a=30*Math.random();
+        ctx.drawImage(canvas,a*Math.sin(r),a*Math.cos(r));
+      }
+      // it wants to go to white.
+      // occasionally offset that.
+      if(Math.random()<0.1)
+      {
+        ctx.globalCompositeOperation="multiply";
+        ctx.globalAlpha=0.01;
+        ctx.drawImage(canvas,0,0);
+      }
+
+     ctx.restore();
+     if(step<500)
+     {
+      window.requestAnimationFrame(createFlames);
+     }else
+       initCreateCurls();
+    }
+    var attractors=[];
+    var data;
+    function getColor(x,y)
+    {
+      x=(canvas.width+Math.floor(x))%canvas.width;
+      y=(canvas.height+Math.floor(y))%canvas.height;
+      var nr=(x+y*canvas.width)*4;
+      rgb={};
+      rgb.r=data[nr];
+      rgb.g=data[nr+1];
+      rgb.b=data[nr+2];
+      return rgb;
+      
+    }
+    function initCreateCurls()
+    {
+      step=0;
+      data=ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      console.log("read "+data.length/4+" pixels "+canvas.width+"x"+canvas.height+"="+canvas.height*canvas.width);
+      part=[];
+      for(var i=0;i<500;i++) // particles
+      {
+        var o={};
+        o.x=canvas.width*Math.random();
+        o.y=canvas.width*Math.random();
+        var r=20*Math.PI**Math.random();
+        o.lt=canvas.height*Math.random()/5;
+        o.l=o.lt;
+        o.dx=Math.sin(r);
+        o.dy=Math.cos(r);
+        getColor(o.x,o.y);
+        o.r=rgb.r-32+64*Math.random();
+        o.g=rgb.g-32+64*Math.random();
+        o.b=rgb.b-32+64*Math.random();
+        part.push(o);
+      }
+      for(var i=0;i<300;i++) // attractors 500 seems to be a lucky guess
+      {
+        var o={};
+        o.x=canvas.width*Math.random();
+        o.y=canvas.width*Math.random();
+        o.turn=-1+2*Math.random();
+        o.attract=2*Math.random();
+        attractors.push(o);
+      }
+      createCurls();
+    }
+    var start_points=[];
+    for(var x=0; x<canvas.width;x++)
+    for(var y=0; y<canvas.height;y++)
+    {
+      start_points.push({x:x,y:y});
+    }
+    start_points.sort(hussle);
+    function hussle(a,b)
+    {
+      if(Math.random()<0.5)return-1;
+      return 1;
+    }
+    
+    var start_point=0;
+    function createCurls()
+    {
+      console.log("createCurls");
+      step++;
+      //frame++;
+      var now2=Date.now();
+      var dt=now2-now;
+      now=now2;
+      var pct=Math.floor(10000*start_point/start_points.length)/100;
+      framedom.innerHTML="attractors: "+attractors.length+", pct: "+pct+"% steps: "+start_point+"/"+start_points.length+" frame: "+Math.floor(frame)+", fps: "+Math.floor(1000/dt);
+   //  ctx.clearRect(0,0,canvas.width,canvas.height);
+    
+    
+      for(var i=part.length-1;i>=0;i--)
+      {
+        var o=part[i];
+        o.x+=o.dx;
+        o.y+=o.dy;
+        // now draw them..
+
+        // make two dots.. one darker one lighter to show strokes.
+        var a=Math.cos(-0.5*Math.PI+Math.PI*o.l/o.lt);
+        ctx.fillStyle="rgba("+o.r+","+o.g+","+o.b+","+a+")";
+        ctx.fillRect(o.x,o.y,1,1);
+        
+        o.l--;
+        if(o.l<=0)
+        {
+            
+          // new placing..
+          o.x=start_points[start_point].x;
+          o.y=start_points[start_point].y;
+          start_point++
+          if(start_point>start_points.length-1) start_point=0;
+          
+          var r=20*Math.PI**Math.random();
+          o.lt=canvas.height*Math.random()/5;
+          o.l=o.lt;
+          o.dx=Math.sin(r);
+          o.dy=Math.cos(r);
+          getColor(o.x,o.y);
+        o.r=rgb.r-32+64*Math.random();
+        o.g=rgb.g-32+64*Math.random();
+        o.b=rgb.b-32+64*Math.random();
+        }
+
+        
+        for(var p=0;p<attractors.length;p++)
+        {
+          var a=attractors[p];
+          var dx=a.x-o.x;
+          var dy=a.y-o.y;
+          var len=Math.sqrt(dx*dx+dy*dy);
+          if(len<canvas.height/13)
+          {
+            o.dx-=a.attract*dx/len+a.turn*dy/len;
+            o.dy+=a.attract*dy/len+a.turn*dx/len;
+          }
+          var speed=Math.sqrt(o.dx*o.dx+o.dy*o.dy);
+          if(speed>1)
+          {
+            o.dx=o.dx/speed;
+            o.dy=o.dy/speed;
+          }
+        }
+      }
+    
+      if(step<(canvas.width*canvas.height+500))
+       {
+        window.requestAnimationFrame(createCurls);
+       }else
+       {
+         console.log("done");
+         var now2=Date.now();
+         var dt=now2-total;
+        console.log("took me "+dt);
+
+       }
+    }
+    
+    
+  </script>
+</body>
+</html>
