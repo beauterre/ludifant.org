@@ -152,8 +152,25 @@ input, select {
       <div class="control-row"><label>Bell Effect:</label>
         <select id="workBellSelect">
             <option value="none">None</option>
-            <option value="work-bell" selected>Work Bell</option>
-            <option value="relax-bell">Relax Bell</option>
+            <option value="bell01" selected>bell01</option>
+            <option value="bell02" >bell02</option>
+            <option value="bell03" >bell03</option>
+            <option value="bell04" >bell04</option>
+            <option value="bell05" >bell05</option>
+            <option value="bell06" >bell06</option>
+            <option value="bell07" >bell07</option>
+            <option value="bell08" >bell08</option>
+            <option value="bell09" >bell09</option>
+            <option value="bell10" >bell10</option>
+            <option value="bell11" >bell11</option>
+            <option value="bell12" >bell12</option>
+            <option value="bell13" >bell13</option>
+            <option value="bell14" >bell14</option>
+            <option value="bell15" >bell15</option>
+            <option value="bell16" >bell16</option>
+            <option value="bell17" >bell17</option>
+            <option value="bell18" >bell18</option>
+            <option value="bell19" >bell19</option>
         </select>
       </div>
     </fieldset>
@@ -170,8 +187,25 @@ input, select {
       <div class="control-row"><label>Bell Effect:</label>
         <select id="relaxBellSelect">
             <option value="none">None</option>
-            <option value="relax-bell" selected>Relax Bell</option>
-            <option value="work-bell">Work Bell</option>
+			<option value="bell01" >bell01</option>
+            <option value="bell02" selected>bell02</option>
+            <option value="bell03" >bell03</option>
+            <option value="bell04" >bell04</option>
+            <option value="bell05" >bell05</option>
+            <option value="bell06" >bell06</option>
+            <option value="bell07" >bell07</option>
+            <option value="bell08" >bell08</option>
+            <option value="bell09" >bell09</option>
+            <option value="bell10" >bell10</option>
+            <option value="bell11" >bell11</option>
+            <option value="bell12" >bell12</option>
+            <option value="bell13" >bell13</option>
+            <option value="bell14" >bell14</option>
+            <option value="bell15" >bell15</option>
+            <option value="bell16" >bell16</option>
+            <option value="bell17" >bell17</option>
+            <option value="bell18" >bell18</option>
+            <option value="bell19" >bell19</option>
         </select>
       </div>
     </fieldset>
@@ -205,8 +239,25 @@ input, select {
   <audio class="music" label="none" src="audio/music/none/none.mp3"></audio>
   
   <!-- SFX BELLS -->
-  <audio class="sfx" label="work-bell" src="audio/sfx/work-bell.mp3"></audio>
-  <audio class="sfx" label="relax-bell" src="audio/sfx/relax-bell.mp3"></audio>
+  <audio class="sfx" label="bell01" src="audio/sfx/bell01.mp3"></audio>
+  <audio class="sfx" label="bell02" src="audio/sfx/bell02.mp3"></audio>
+  <audio class="sfx" label="bell03" src="audio/sfx/bell03.mp3"></audio>
+  <audio class="sfx" label="bell04" src="audio/sfx/bell04.mp3"></audio>
+  <audio class="sfx" label="bell05" src="audio/sfx/bell05.mp3"></audio>
+  <audio class="sfx" label="bell06" src="audio/sfx/bell06.mp3"></audio>
+  <audio class="sfx" label="bell07" src="audio/sfx/bell07.mp3"></audio>
+  <audio class="sfx" label="bell08" src="audio/sfx/bell08.mp3"></audio>
+  <audio class="sfx" label="bell09" src="audio/sfx/bell09.mp3"></audio>
+  <audio class="sfx" label="bell10" src="audio/sfx/bell10.mp3"></audio>
+  <audio class="sfx" label="bell11" src="audio/sfx/bell11.mp3"></audio>
+  <audio class="sfx" label="bell12" src="audio/sfx/bell12.mp3"></audio>
+  <audio class="sfx" label="bell13" src="audio/sfx/bell13.mp3"></audio>
+  <audio class="sfx" label="bell14" src="audio/sfx/bell14.mp3"></audio>
+  <audio class="sfx" label="bell15" src="audio/sfx/bell15.mp3"></audio>
+  <audio class="sfx" label="bell16" src="audio/sfx/bell16.mp3"></audio>
+  <audio class="sfx" label="bell17" src="audio/sfx/bell17.mp3"></audio>
+  <audio class="sfx" label="bell18" src="audio/sfx/bell18.mp3"></audio>
+  <audio class="sfx" label="bell19" src="audio/sfx/bell19.mp3"></audio>
   <audio class="sfx" label="none" src="audio/sfx/none.mp3"></audio>
 </div>
  <script src="zenback.js"></script>
@@ -422,18 +473,27 @@ function fireEvent(event) {
             playPlaylist(phase === "work" ? 'work' : 'relax', currentMusicStopFlag);
             break;
 
-        case EventType.BELL:
+         case EventType.BELL:
             const sfxLabel = (phase === "work") ? document.getElementById('workBellSelect').value : document.getElementById('relaxBellSelect').value;
+            console.log("🔔 Attempting to ring bell for phase: " + phase + " | Label: " + sfxLabel);
+            
             const allSfx = Array.from(document.querySelectorAll('.sfx'));
             const bellAudio = allSfx.find(a => a.getAttribute('label') === sfxLabel);
+            
             if (bellAudio) { 
+                console.log("✅ Audio element found: " + bellAudio.src);
                 bellAudio.currentTime = 0; 
-                bellAudio.play(); 
+                bellAudio.play().then(() => {
+                    console.log("🔊 Bell played successfully!");
+                }).catch(err => {
+                    console.error("❌ Playback failed for " + sfxLabel + ":", err);
+                });
+            } else {
+                console.error("🚫 No audio element found with label: " + sfxLabel);
             }
             break;
     }
 }
-
 window.addEventListener('DOMContentLoaded', () => {
     const settingsDiv = document.getElementById('settings');
     const toggleIcon = document.getElementById('session-controls-minified');
@@ -442,14 +502,32 @@ window.addEventListener('DOMContentLoaded', () => {
         const isHidden = settingsDiv.style.display === 'none';
         settingsDiv.style.display = isHidden ? 'block' : 'none';
         toggleIcon.textContent = isHidden ? '⮝' : '⮟';
-		
-		
-		// 2. STOP BUBBLING: Prevent clicks inside the settings from closing the menu
-		settingsDiv.addEventListener('click', (event) => {
-			event.stopPropagation(); 
-		});
+        
+        settingsDiv.addEventListener('click', (event) => {
+            event.stopPropagation(); 
+        });
     });
+
+    // --- ADD THIS PART FOR THE BELL PREVIEWS ---
+    const workBellSelect = document.getElementById('workBellSelect');
+    const relaxBellSelect = document.getElementById('relaxBellSelect');
+
+    const playPreview = (selectElement, phase) => {
+        const sfxLabel = selectElement.value;
+        if (sfxLabel === 'none') return;
+        
+        const allSfx = Array.from(document.querySelectorAll('.sfx'));
+        const bellAudio = allSfx.find(a => a.getAttribute('label') === sfxLabel);
+        if (bellAudio) {
+            bellAudio.currentTime = 0;
+            bellAudio.play();
+        }
+    };
+
+    workBellSelect.addEventListener('change', () => playPreview(workBellSelect, 'work'));
+    relaxBellSelect.addEventListener('change', () => playPreview(relaxBellSelect, 'rest'));
 });
+
 
 function animate() {
     const tElapsed = Math.floor((Date.now() - sessionStarted) / 1000);
