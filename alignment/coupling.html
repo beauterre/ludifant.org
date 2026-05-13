@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Volume to Video Playback Speed</title>
+    <style>
+        #visualizer {
+            width: 100%;
+            height: 100px;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+
+        #bar {
+            background-color: #3498db;
+            width: 0;
+            height: 100%;
+            transition: width 0.1s ease-out;
+        }
+
+        #volume {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="startPlaybackBtn">Start Audio and Video playback</button>
+	
+    <audio id="audio">
+        <source src="alien-s-lament-export.wav" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio><br>
+	Visualiser:
+    <div id="visualizer">
+        <div id="bar"></div>
+    </div>
+    <span id="volume"></span>
+
+    <video id="video" controls>
+        <source src="2024-04-30 17-36-37.mp4" type="video/mp4">
+        Your browser does not support the video element.
+    </video>
+
+
+    <script>
+        // Get references to the audio and video elements
+        const audio = document.getElementById('audio');
+        const video = document.getElementById('video');
+		video.volume=0;
+		video.currentTime=22*60;// 10 minutes..
+
+        // Get reference to the visualizer bar
+        const bar = document.getElementById('bar');
+
+        // Get reference to the volume display span
+        const volumeSpan = document.getElementById('volume');
+
+        // Variable to track whether playback has started
+        let playbackStarted = false;
+
+        // Function to initialize the AudioContext
+        function initializeAudioContext() {
+            // Create the AudioContext
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioContext = new AudioContext();
+            // Connect audio element to the AudioContext
+            const source = audioContext.createMediaElementSource(audio);
+            source.connect(audioContext.destination);
+            // Start updating the visualizer
+            updateVisualizer();
+        }
+
+        // Create the AudioContext variable
+        let audioContext;
+
+        // Create an AnalyserNode for the AudioContext
+        let analyser;
+
+        // Function to update the visualizer and control video playback speed
+        function updateVisualizer() {
+			
+            // Create the AnalyserNode if it doesn't exist
+            if (!analyser) {
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 256;
+            }
+
+            // Get the average volume level
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            analyser.getByteFrequencyData(dataArray);
+            let averageVolume = 0;
+            for (let i = 0; i < bufferLength; i++) {
+                averageVolume += dataArray[i];
+            }
+            averageVolume /= bufferLength;
+			console.log("updateVisualizer"+ averageVolume);
+
+            // Update the visualizer bar width
+            const barWidth = (averageVolume / 255) * 100;
+            bar.style.width = barWidth + '%';
+
+            // Update the volume display
+            volumeSpan.textContent = 'Volume: ' + Math.round(averageVolume);
+
+            // Calculate the playback speed based on volume
+            const minSpeed = 1;
+            const maxSpeed = 20000.0;
+            const playbackSpeed = minSpeed + (averageVolume / 255) * (maxSpeed - minSpeed);
+			if(playbackSpeed<0.100)playbackSpeed=0.1;
+            // Set the playback speed of the video element
+            video.playbackRate = playbackSpeed;
+
+            // Request animation frame for continuous update
+            requestAnimationFrame(updateVisualizer);
+        }
+
+        // Function to start audio and video playback and toggle fullscreen mode for the video element
+        const startPlaybackBtn = document.getElementById('startPlaybackBtn');
+		function initializeAudioContext() {
+    // Create the AudioContext
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    try {
+        audioContext = new AudioContext();
+    } catch (error) {
+        console.error('Error creating AudioContext:', error);
+        return;
+    }
+    
+    // Connect audio element to the AudioContext
+    const source = audioContext.createMediaElementSource(audio);
+    source.connect(audioContext.destination);
+
+    // Connect AnalyserNode to audio source
+    analyser = audioContext.createAnalyser();
+    source.connect(analyser);
+
+    // Log the analyser node to check if it's connected properly
+    console.log('AnalyserNode:', analyser);
+    
+    // Start updating the visualizer
+    updateVisualizer();
+}
+
+
+        startPlaybackBtn.addEventListener('click', () => {
+            if (!playbackStarted) {
+                playbackStarted = true;
+				
+				  // Request fullscreen mode for the video element
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.mozRequestFullScreen) { /* Firefox */
+                    video.mozRequestFullScreen();
+                } else if (video.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { /* IE/Edge */
+                    video.msRequestFullscreen();
+                }
+                // Start audio playback
+                audio.play();
+				video.play();
+                // Initialize AudioContext and start visualizer
+                initializeAudioContext();
+            }
+        });
+    </script>
+</body>
+</html>

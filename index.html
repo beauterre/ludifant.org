@@ -5,15 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ludifant.org – English</title>
 <style>
-  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#efeedc;  }
-  header { background:#3e6062; color: rgba(255,255,255,0.4); padding:0.8rem; text-align:center; position:relative; }
-  header h1 { margin:0; font-size:1.2rem; }
-  header p { margin:0.2rem 0 0; font-size:0.8rem; }
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f4f2;  }
+header { 
+  background: #e8e6df; /* Very light warm grey */
+  color: #565752;      /* Dark grey text */
+  padding: 0.8rem; 
+  text-align: center; 
+  position: relative; 
+  border-bottom: 1px solid #d3c5b0;
+}
+header h1 { margin: 0; font-size: 1.2rem; color: #3c4d43; }
+header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
   .languageSelector { position:absolute; top:1rem; right:1rem; padding:0.5rem; font-size:1rem; }
   .languageSelector:hover, .languageSelector:focus { border-color:#3498db; outline:none; }
 
-  .accountBtn { position:absolute; top:1rem; left:1rem; padding:0.5rem 1rem; font-size:1rem; background:#f28947; color:#fff; border:none; border-radius:6px; cursor:pointer; }
-  .accountBtn:hover { background:#d35400; }
+.accountBtn { 
+  position: absolute; 
+  top: 1rem; 
+  left: 1rem; 
+  padding: 0.5rem 1rem; 
+  font-size: 1rem; 
+  background: #a69c8a; /* Matches Zen Palette */
+  color: #fff; 
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  transition: background 0.3s;
+}
+.accountBtn:hover { 
+  background: #8e9aaf; /* Subtle shift to blue-grey on hover */
+}
+
 
   main { padding:2rem; display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; }
 
@@ -100,24 +122,37 @@
     transition: background 0.3s;
   }
 
-  footer { text-align:center; padding:2rem; color:#777; font-size:0.9rem; }
+  footer { 
+  text-align: center; 
+  padding: 3rem 2rem; /* More padding for a cleaner look */
+  color: #8a8a84;     /* Softer grey-brown instead of #777 */
+  font-size: 0.85rem; 
+  letter-spacing: 1px; /* Adds a touch of elegance/modernity */
+  font-style: italic; /* Optional: gives it a gentle, thoughtful tone */
+}
 </style>
 </head>
 <body>
 <!-- English -->
 <section class="module" language="english">
   <header>
-    <button class="accountBtn">Login / Account</button>
+    <!--<button class="accountBtn">Login / Account</button>-->
     <h1>Ludifant.org</h1>
     <p>Explore, Learn, and Align</p>
     <select class="languageSelector"></select>
   </header>
 
   <main>
-    <div class="hero">
-      <h2>I need us to be better..</h2>
-      <p>So I created some tools for myself to increase my mental energy and to enhance my ecological awareness.</p>
-    </div>
+  <div class="hero">
+  <h2 style="font-style: italic; font-weight: normal; color: #3c4d43; font-size: 1.8rem;">
+    "Serenity is redefining what is extraordinary"
+  </h2>
+  <p style="line-height: 1.6; color: #565752; margin-top: 1.5rem;">
+    I created these resources to help transform daily perception into mindful awareness. They are designed to increase mental energy and align the spirit, open to all who wish to explore.
+  </p>
+</div>
+
+
 
     <div class="card" style="background-image:url('journey.png')"> 
       <h2>Journey..</h2>
@@ -128,7 +163,7 @@
     <div class="card" style="background-image:url('alignment.png')">
       <h2>Alignment</h2>
       <p>Calming visuals and sounds. Master Ludifant's lectures and aforisms.</p>
-      <a href="/alignment">Enter Alignment</a>
+      <a href="alignment/alignment-index.html#language=english">Enter Alignment</a>
     </div>
 
     <div class="card" style="background-image:url('rosetta.png')">
@@ -167,34 +202,38 @@
 		<p>Memory training, focus exercises, pattern recognition, and critical thinking modules designed to enhance mental performance.</p> 
 		<a href="/memory">Explore Memory</a>
 	</div> 
-<!-- Support -->
+<!-- Support 
 <div class="card" style="background-image:url('support.png')">
   <h2>Join In!</h2> 
   <p>Support this site by buying a T-shirt, donating, translating, or creating content.</p> 
   <a href="/support">Join In</a> 
-</div>
+</div>-->
 
   </main>
 
   <footer>
-    &copy; 2025 Ludifant.org – Free games
+    &copy; 2025 Ludifant.org – A space for growth and self-discovery, open to all.
   </footer>
 </section>
 
 <!-- Nederlands -->
 <section class="module" language="dutch">
   <header>
-    <button class="accountBtn">Inloggen / Account</button>
+    <!--<button class="accountBtn">Inloggen / Account</button>-->
     <h1>Ludifant.org</h1>
     <p>Ontdek, Leer en Stem Af.</p>
     <select class="languageSelector"></select>
   </header>
 
   <main>
-    <div class="hero">
-      <h2>Ik heb nodig dat we beter zijn..</h2>
-      <p>Dus ontstonden deze tools om mentale energie te vergroten en bewustzijn te versterken en wil ik ze gratis delen.</p>
-    </div>
+<div class="hero">
+  <h2 style="font-style: italic; font-weight: normal; color: #3c4d43; font-size: 1.8rem;">
+    "Sereniteit is het herdefiniëren van wat buitengewoon is"
+  </h2>
+  <p style="line-height: 1.6; color: #565752; margin-top: 1.5rem;">
+    Ik heb deze hulpmiddelen gemaakt om dagelijkse waarneming te transformeren naar bewuste aandacht. Ze zijn ontworpen om mentale energie te vergroten en de geest in balans te brengen, open voor iedereen die wil ontdekken.
+  </p>
+</div>
 
     <div class="card" style="background-image:url('journey.png')"> 
       <h2>Reis..</h2>
@@ -205,7 +244,7 @@
     <div class="card" style="background-image:url('alignment.png')">
       <h2>Afstemming</h2>
       <p>Rustgevende beelden en geluiden. De gelukskoekjes en tegeltjes van meester Ludifant.</p>
-      <a href="/alignment">Start Afstemming</a>
+      <a href="alignment/alignment-index.html#language=dutch">Start Afstemming</a>
     </div>
 
     <div class="card" style="background-image:url('rosetta.png')">
@@ -242,34 +281,38 @@
 		<p>Geheugentraining, concentratie-oefeningen, patroonherkenning en  kritisch denken modules ontworpen om je mentale kracht te vergroten.</p> 
 		<a href="/memory">Explore Memory</a>
 	</div> 
-<!-- Support --> 
+<!-- Support 
 	<div class="card"  style="background-image:url('support.png')">
 		<h2>Doe mee!</h2> 
 		<p>Steun deze site door het T-shirt te kopen, te doneren, te vertalen of content te maken.</p> 
 		<a href="/support">Meedoen</a>
-	</div> 
+	</div> --> 
 
   </main>
 
   <footer>
-    &copy; 2025 Ludifant.org – Gratis spelletjes.
+    &copy; 2025 Ludifant.org – Een ruimte voor groei en zelfontdekking, open voor iedereen.
   </footer>
 </section>
 
 <!-- Suomi -->
 <section class="module" language="finnish">
   <header>
-    <button class="accountBtn">Kirjaudu / Tili</button>
+    <!--<button class="accountBtn">Kirjaudu / Tili</button>-->
     <h1>Ludifant.org</h1>
     <p>Tutki, Opi ja Sovi Yhteen</p>
     <select class="languageSelector"></select>
   </header>
 
   <main>
-    <div class="hero">
-      <h2>Minun täytyy, että olemme parempia..</h2>
-      <p>Joten loin itselleni työkaluja lisätäkseni henkistä energiaani ja vahvistaakseni ekologista tietoisuuttani.</p>
-    </div>
+   <div class="hero">
+  <h2 style="font-style: italic; font-weight: normal; color: #3c4d43; font-size: 1.8rem;">
+    "Sereneys on sen määrittelyä uudelleen, mikä on poikkeuksellista"
+  </h2>
+  <p style="line-height: 1.6; color: #565752; margin-top: 1.5rem;">
+    Loin nämä resurssit auttamaan muuttamaan päivittäisen havainnoinnin tietoiseksi läsnäoloksi. Niiden tarkoituksena on lisätä henkistä energiaa ja sovittaa henkeä yhteen, avoinna kaikille, jotka haluavat tutkia.
+  </p>
+</div>
 
     <div class="card" style="background-image:url('journey.png')"> 
       <h2>Matka</h2>
@@ -280,7 +323,7 @@
     <div class="card" style="background-image:url('alignment.png')">
       <h2>Yhdenmukaisuus</h2>
       <p>Rauhoittavia kuvia ja ääniä. Hallitse Ludifantin luentoja ja aforismeja.</p>
-      <a href="/alignment">Aloita Yhdenmukaisuus</a>
+      <a href="alignment/alignment-index.html#language=finnish">Aloita Yhdenmukaisuus</a>
     </div>
 
     <div class="card" style="background-image:url('rosetta.png')">
@@ -318,17 +361,17 @@
   <a href="/memory">Tutki Muistia</a>
 </div> 
 
-<!-- Support -->
+<!-- Support
 <div class="card" style="background-image:url('support.png')">
   <h2>Osallistu!</h2> 
   <p>Tue tätä sivustoa ostamalla t-paita, lahjoittamalla, kääntämällä tai luomalla sisältöä.</p> 
   <a href="/support">Osallistu</a> 
-</div>
+</div> -->
 
   </main>
 
   <footer>
-    &copy; 2025 Ludifant.org - Ilmaisia ​​pelejä
+    &copy; 2025 Ludifant.org - Tila kasvulle ja itsetutkimukselle, avoinna kaikille.
   </footer>
 </section>
 
@@ -336,17 +379,22 @@
 <!-- Български -->
 <section class="module" language="bulgarian">
   <header>
-    <button class="accountBtn">Вход / Акаунт</button>
+    <!--<button class="accountBtn">Вход / Акаунт</button>-->
     <h1>Ludifant.org</h1>
     <p>Изследвай, Учѝ се и Синхронизирай</p>
     <select class="languageSelector"></select>
   </header>
 
   <main>
-    <div class="hero">
-      <h2>Имам нужда да бъдем по-добри..</h2>
-      <p>Затова създадох инструменти за себе си, за да увелича умствената си енергия и да засиля екологичното си съзнание.</p>
-    </div>
+   <div class="hero">
+  <h2 style="font-style: italic; font-weight: normal; color: #3c4d43; font-size: 1.8rem;">
+    "Спокойствието е да преосмислиш какво е изключително"
+  </h2>
+  <p style="line-height: 1.6; color: #565752; margin-top: 1.5rem;">
+    Създадох тези ресурси, за да помогна за трансформирането на ежедневното възприятие в осъзнатост. Те са създадени, за да увеличат умствената енергия и да синхронизират духа, отворени за всички, които желаят да изследват.
+  </p>
+</div>
+
 
     <div class="card" style="background-image:url('journey.png')"> 
       <h2>Пътуване</h2>
@@ -357,7 +405,7 @@
     <div class="card" style="background-image:url('alignment.png')">
       <h2>Синхрон</h2>
       <p>Успокояващи визуализации и звуци. Овладей лекциите и афоризмите на Ludifant.</p>
-      <a href="/alignment">Влез в Синхрон</a>
+      <a href="alignment/alignment-index.html#language=bulgarian">Влез в Синхрон</a>
     </div>
 
     <div class="card" style="background-image:url('rosetta.png')">
@@ -395,17 +443,17 @@
   <a href="/memory">Изследвай паметта</a>
 </div> 
 
-<!-- Support -->
+<!-- Support 
 <div class="card" style="background-image:url('support.png')">
   <h2>Присъедини се!</h2> 
   <p>Подкрепете този сайт, като закупите тениска, дарите, преведете или създадете съдържание.</p> 
   <a href="/support">Присъедини се</a> 
-</div>
+</div>-->
 
   </main>
 
   <footer>
-    &copy; 2025 Ludifant.org - Безплатни игри
+    &copy; 2025 Ludifant.org - Пространство за растеж и себепознание, отворено за всички.
   </footer>
 </section>
 
@@ -413,17 +461,21 @@
 <!-- Deutsch -->
 <section class="module" language="german">
   <header>
-    <button class="accountBtn">Anmelden / Konto</button>
+    <!--<button class="accountBtn">Anmelden / Konto</button>-->
     <h1>Ludifant.org</h1>
     <p>Entdecken, Lernen und Abstimmen </p>
     <select class="languageSelector"></select>
   </header>
 
   <main>
-    <div class="hero">
-      <h2>Wir müssen besser werden..</h2>
-      <p>Also habe ich einige Werkzeuge für mich selbst entwickelt, um meine mentale Energie zu steigern und mein Bewusstsein zu schärfen.</p>
-    </div>
+  <div class="hero">
+  <h2 style="font-style: italic; font-weight: normal; color: #3c4d43; font-size: 1.8rem;">
+    "Gelassenheit bedeutet, neu zu definieren, was außergewöhnlich ist"
+  </h2>
+  <p style="line-height: 1.6; color: #565752; margin-top: 1.5rem;">
+    Ich habe diese Ressourcen geschaffen, um die tägliche Wahrnehmung in achtsame Gewahrsein zu verwandeln. Sie sollen die mentale Energie steigern und den Geist in Einklang bringen – offen für alle, die das Erkunden möchten.
+  </p>
+</div>
 
     <div class="card" style="background-image:url('journey.png')"> 
       <h2>Reise..</h2>
@@ -434,7 +486,7 @@
     <div class="card" style="background-image:url('alignment.png')">
       <h2>Abstimmung</h2>
       <p>Beruhigende Bilder und Klänge. Meistere Ludifants Vorträge und Aphorismen.</p>
-      <a href="/alignment">Abstimmung starten</a>
+      <a href="alignment/alignment-index.html#language=german">Abstimmung starten</a>
     </div>
 
     <div class="card" style="background-image:url('rosetta.png')">
@@ -471,33 +523,37 @@
       <p>Gedächtnistraining, Konzentrationsübungen, Mustererkennung und kritisches Denken zur Verbesserung der mentalen Leistungsfähigkeit.</p> 
       <a href="/memory">Gedächtnis erkunden</a>
     </div> 
-<!-- Support -->
+<!-- Support 
 <div class="card" style="background-image:url('support.png')">
   <h2>Mitmachen!</h2> 
   <p>Unterstütze diese Seite, indem du ein T-Shirt kaufst, spendest, übersetzt oder Inhalte erstellst.</p> 
   <a href="/support">Mitmachen</a> 
-</div>
+</div>-->
   </main>
 
   <footer>
-    &copy; 2025 Ludifant.org – Kostenlose Spiele.
+    &copy; 2025 Ludifant.org – Ein Raum für Wachstum und Selbsterkenntnis, offen für alle.
   </footer>
 </section>
 
 <!-- Français -->
 <section class="module" language="french">
   <header>
-    <button class="accountBtn">Connexion / Compte</button>
+     <!--<button class="accountBtn">Connexion / Compte</button>-->
     <h1>Ludifant.org</h1>
     <p>Explorer, Apprendre et S’aligner</p>
     <select class="languageSelector"></select>
   </header>
 
   <main>
-    <div class="hero">
-      <h2>Nous devons être meilleurs..</h2>
-      <p>J’ai donc créé quelques outils pour moi-même afin d’augmenter mon énergie mentale et d’améliorer ma conscience écologique.</p>
-    </div>
+   <div class="hero">
+  <h2 style="font-style: italic; font-weight: normal; color: #3c4d43; font-size: 1.8rem;">
+    "La sérénité, c'est redéfinir ce qui est extraordinaire"
+  </h2>
+  <p style="line-height: 1.6; color: #565752; margin-top: 1.5rem;">
+    J'ai créé ces ressources pour aider à transformer la perception quotidienne en une conscience attentive. Elles sont conçues pour accroître l'énergie mentale et aligner l'esprit, ouvertes à tous ceux qui souhaitent explorer.
+  </p>
+</div>
 
     <div class="card" style="background-image:url('journey.png')"> 
       <h2>Voyage..</h2>
@@ -508,7 +564,7 @@
     <div class="card" style="background-image:url('alignment.png')">
       <h2>Alignement</h2>
       <p>Images et sons apaisants. Maîtrisez les conférences et aphorismes de Ludifant.</p>
-      <a href="/alignment">Commencer l’alignement</a>
+      <a href="alignment/alignment-index.html#language=french">Commencer l’alignement</a>
     </div>
 
     <div class="card" style="background-image:url('rosetta.png')">
@@ -546,18 +602,18 @@
   <a href="/memory">Explorer la mémoire</a> 
 </div> 
 
-<!-- Support -->
+<!-- Support 
 <div class="card" style="background-image:url('support.png')">
   <h2>Participez !</h2> 
   <p>Soutenez ce site en achetant un t-shirt, en faisant un don, en traduisant ou en créant du contenu.</p> 
   <a href="/support">Participer</a> 
-</div>
+</div>-->
 
 
   </main>
 
   <footer>
-    &copy; 2025 Ludifant.org – Plateforme gratuite
+    &copy; 2025 Ludifant.org – Un espace de croissance et de découverte de soi, ouvert à tous.
   </footer>
 </section>
 
@@ -660,7 +716,7 @@ const langMap = {
   document.querySelectorAll('.accountBtn').forEach(btn=>btn.addEventListener('click',()=>alert('Login or view your stats (authorization required).')));
 
   // Color palette & overlay
-const palette = [
+/*const palette = [
   "#f28947", // oranje
   "#876f4e", // bruin
   "#65baa7", // teal
@@ -669,6 +725,17 @@ const palette = [
   "#778877", // grijs
   "#6e4488", // paars
   "#802664"
+];*/
+// Zen Palette: Muted earth tones, soft sages, and atmospheric slates
+const palette = [
+  "#8da399", // Sage Green
+  "#a69c8a", // Warm Taupe
+  "#8e9aaf", // Muted Steel Blue
+  "#c2b280", // Sandstone
+  "#95a7a1", // Dusty Eucalyptus
+  "#b5a3a3", // Muted Rose/Clay
+  "#7a8d8a", // Deep Slate Green
+  "#d3c5b0"  // Pale Linen
 ];
 document.querySelectorAll('section.module').forEach(section => {
   const cards = section.querySelectorAll('.card');
@@ -694,6 +761,7 @@ document.querySelectorAll('section.module').forEach(section => {
       overlayDark.classList.add('overlay','dark');
       card.insertBefore(overlayDark, card.firstChild);
     }
+//	overlayDark.style.backgroundColor = color + '66'; 
     overlayDark.style.backgroundColor = color + '88';
     overlayDark.style.transition = 'opacity 0.8s';
 
