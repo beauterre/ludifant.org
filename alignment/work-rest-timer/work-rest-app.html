@@ -312,6 +312,21 @@ let sessionStarted, phaseStarted;
 const EventType = { VOICE: "voice", MUSIC: "music", BELL: "bell", CHEER: "cheer" };
 
 function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+
+
+async function fadeOutAndStop(audio, duration = 1500) {
+    const startVolume = audio.volume;
+    const steps = 20; // Number of volume increments
+    const interval = duration / steps;
+
+    for (let i = 0; i < steps; i++) {
+        if (audio.paused) break;
+        audio.volume = Math.max(0, startVolume - (startVolume * (i / steps)));
+        await new Promise(resolve => setTimeout(resolve, interval));
+    }
+    audio.pause();
+}
+
 async function playPlaylist(phaseType, stopFlag) {
     const mixLabel = (phaseType === 'work') ? document.getElementById('workMusicSelect').value : document.getElementById('relaxMusicSelect').value;
     
@@ -328,38 +343,30 @@ async function playPlaylist(phaseType, stopFlag) {
         for (const audio of list) {
             if (stopFlag.stop) return;
 
-            // 1. Reset and Prep
             audio.currentTime = 0;
-            audio.volume = 1;
+            audio.volume = 1; // Reset volume to full for the new song
             currentMusicPlaying.innerText = "Music Mix [" + mixLabel + "]: " + audio.src.split('/').pop();
 
             try {
-                // 2. The "Hard Start" 
-                // We await the play. If a phone event happened, this is the point
-                // where the browser might block. 
                 await audio.play();
             } catch (err) {
                 console.log("Playback blocked by OS, waiting for next song...");
-                // If this fails, we just skip to the next song in the list
                 continue; 
             }
 
-            // 3. Simple Wait: Wait until the song actually finishes
-            await new Promise(resolve => {
+            // Use a Promise that resolves if the song ends OR if the stopFlag is triggered
+            await new Promise(async resolve => {
                 audio.onended = resolve;
                 
-                // Safety: If the session is stopped, end this song immediately
-                const checkStop = setInterval(() => {
+                // Check for stop flag frequently
+                const checkStop = setInterval(async () => {
                     if (stopFlag.stop) {
-                        audio.pause();
                         clearInterval(checkStop);
+                        await fadeOutAndStop(audio, 1000); // Fade out over 1 second
                         resolve();
                     }
-                }, 500);
+                }, 100);
             });
-
-            // 4. Zen gap
-            await new Promise(resolve => setTimeout(resolve, 2000));
         }
     }
 }
