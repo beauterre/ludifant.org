@@ -104,7 +104,7 @@ input, select {
   button { font-size: 1.5rem; padding: 14px 28px; }
 }
 </style>
-<link rel="manifest" href="manifest.json">
+<!--<link rel="manifest" href="manifest.json">-->
 
 <script src="lib/NoSleep.min.js"></script>
 
@@ -112,6 +112,20 @@ input, select {
 
 <body>
 <script>const noSleep = new NoSleep();</script>
+
+<script>
+// register audio bundle first..
+    window.audioBundle = {}; // Global registry for all audio
+</script>
+<script src='audio-bundle/audio-bundle-part-music-none.js'></script> 
+<script src='audio-bundle/audio-bundle-part-music-relax.js' ></script>
+<script src='audio-bundle/audio-bundle-part-music-work.js' ></script>
+<script src='audio-bundle/audio-bundle-part-sfx-bells.js' ></script>
+<script src='audio-bundle/audio-bundle-part-voice-none.js' ></script>
+<script src='audio-bundle/audio-bundle-part-voice-Alice.js' ></script>
+<script src='audio-bundle/audio-bundle-part-voice-Hjalmar.js' ></script>
+
+
 
 <small>version 2026-05-13-17:00</small>
 <h1 id="mainTitle">Rhythm of Rest</h1>
@@ -154,25 +168,25 @@ input, select {
       <div class="control-row"><label>Bell Effect:</label>
         <select id="workBellSelect">
             <option value="none">None</option>
-            <option value="bell01" selected>bell01</option>
-            <option value="bell02" >bell02</option>
-            <option value="bell03" >bell03</option>
-            <option value="bell04" >bell04</option>
-            <option value="bell05" >bell05</option>
-            <option value="bell06" >bell06</option>
-            <option value="bell07" >bell07</option>
-            <option value="bell08" >bell08</option>
-            <option value="bell09" >bell09</option>
-            <option value="bell10" >bell10</option>
-            <option value="bell11" >bell11</option>
-            <option value="bell12" >bell12</option>
-            <option value="bell13" >bell13</option>
-            <option value="bell14" >bell14</option>
-            <option value="bell15" >bell15</option>
-            <option value="bell16" >bell16</option>
-            <option value="bell17" >bell17</option>
-            <option value="bell18" >bell18</option>
-            <option value="bell19" >bell19</option>
+            <option value="sfx-bell01" selected>bell01</option>
+            <option value="sfx-bell02" >bell02</option>
+            <option value="sfx-bell03" >bell03</option>
+            <option value="sfx-bell04" >bell04</option>
+            <option value="sfx-bell05" >bell05</option>
+            <option value="sfx-bell06" >bell06</option>
+            <option value="sfx-bell07" >bell07</option>
+            <option value="sfx-bell08" >bell08</option>
+            <option value="sfx-bell09" >bell09</option>
+            <option value="sfx-bell10" >bell10</option>
+            <option value="sfx-bell11" >bell11</option>
+            <option value="sfx-bell12" >bell12</option>
+            <option value="sfx-bell13" >bell13</option>
+            <option value="sfx-bell14" >bell14</option>
+            <option value="sfx-bell15" >bell15</option>
+            <option value="sfx-bell16" >bell16</option>
+            <option value="sfx-bell17" >bell17</option>
+            <option value="sfx-bell18" >bell18</option>
+            <option value="sfx-bell19" >bell19</option>
         </select>
       </div>
     </fieldset>
@@ -214,9 +228,12 @@ input, select {
   </div>
 </fieldset>
 
-<!-- Hidden Audio Library -->
-<div style="display: none;">
-  <!-- WORK MUSIC MIXES -->
+
+<div id="lib" style="display: none;">
+</div>
+
+<!-- Hidden Audio Library 
+  <!-- WORK MUSIC MIXES 
   <audio class="music" label="workout" src="audio/music/work/work-music001.mp3"></audio>
   <audio class="music" label="workout" src="audio/music/work/work-music002.mp3"></audio>
   <audio class="music" label="workout" src="audio/music/work/work-music003.mp3"></audio>
@@ -231,16 +248,16 @@ input, select {
   <audio class="music" label="workout" src="audio/music/work/work-music012.mp3"></audio>
   <audio class="music" label="workout" src="audio/music/work/work-music013.mp3"></audio>
   
-  <!-- RELAX MUSIC MIXES -->
+  <!-- RELAX MUSIC MIXES 
   <audio class="music" label="relax" src="audio/music/relax/relax-music001.mp3"></audio>
   <audio class="music" label="relax" src="audio/music/relax/relax-music002.mp3"></audio>
   <audio class="music" label="relax" src="audio/music/relax/relax-music003.mp3"></audio>
   <audio class="music" label="relax" src="audio/music/relax/relax-music004.mp3"></audio>
   
-  <!-- SILENCE MUSIC -->
+  <!-- SILENCE MUSIC 
   <audio class="music" label="none" src="audio/music/none/none.mp3"></audio>
   
-  <!-- SFX BELLS -->
+  <!-- SFX BELLS 
   <audio class="sfx" label="bell01" src="audio/sfx/bell01.mp3"></audio>
   <audio class="sfx" label="bell02" src="audio/sfx/bell02.mp3"></audio>
   <audio class="sfx" label="bell03" src="audio/sfx/bell03.mp3"></audio>
@@ -261,9 +278,49 @@ input, select {
   <audio class="sfx" label="bell18" src="audio/sfx/bell18.mp3"></audio>
   <audio class="sfx" label="bell19" src="audio/sfx/bell19.mp3"></audio>
   <audio class="sfx" label="none" src="audio/sfx/none.mp3"></audio>
-</div>
+</div>-->
  <script src="zenback.js"></script>
-    
+   <script>
+  
+console.log("Populating audio library div...");
+
+const libDiv = document.getElementById('lib');
+if (libDiv) {
+    // Clear existing content to avoid duplicates during refreshes/reloads
+    libDiv.innerHTML = ''; 
+
+    // Iterate through the bundle
+    for (let key in window.audioBundle) {
+        const base64Data = window.audioBundle[key];
+
+        // Create a container for each audio track
+        const container = document.createElement('div');
+        container.style.margin = "5px 0";
+        container.style.display = "flex";
+        container.style.alignItems = "center";
+        container.style.fontFamily = "monospace";
+
+        // Create a label for the filename/key
+        const label = document.createElement('span');
+        label.innerText = key;
+        label.style.width = "200px"; // Keeps the players aligned
+
+        // Create the audio player
+        const audioPlayer = document.createElement('audio');
+        audioPlayer.controls = true;
+		audioPlayer.id=key;
+        audioPlayer.src = base64Data; 
+        audioPlayer.style.width = "250px";
+
+        // Append elements
+        container.appendChild(label);
+        container.appendChild(audioPlayer);
+        libDiv.appendChild(container);
+    }
+} else {
+    console.error("Error: Element with id 'lib' not found in the HTML.");
+}
+   </script>
     <script>
         // --- Zen Background Integration ---
         
@@ -328,43 +385,85 @@ async function fadeOutAndStop(audio, duration = 1500) {
     }
     audio.pause();
 }
-
 async function playPlaylist(phaseType, stopFlag) {
     const mixLabel = (phaseType === 'work') ? document.getElementById('workMusicSelect').value : document.getElementById('relaxMusicSelect').value;
     
-    const allMusic = Array.from(document.querySelectorAll('.music'));
-    const pool = allMusic.filter(audio => audio.getAttribute('label') === mixLabel);
+    console.log(`--- 🎵 Music System Triggered ---`);
+    console.log(`Phase: phaseType∣SelectedMixLabel:{phaseType} | Selected Mix Label:phaseType∣SelectedMixLabel:{mixLabel}`);
 
-    if (pool.length === 0) {
+    if (mixLabel === 'none') {
+        console.log("Music set to 'none'. Skipping playback.");
         currentMusicPlaying.innerText = "Music: None";
         return;
     }
 
-    while (!stopFlag.stop) {
-        const list = shuffle([...pool]);
-        for (const audio of list) {
-            if (stopFlag.stop) return;
+    // --- NAMING CONVENTION LOGIC ---
+    // If mixLabel is 'workout', we look for 'music-work'
+    // If mixLabel is 'relax', we look for 'music-relax'
+    let searchPrefix = "";
+    if (mixLabel === 'workout') {
+        searchPrefix = 'music-work';
+    } else if (mixLabel === 'relax') {
+        searchPrefix = 'music-relax';
+    } else {
+        searchPrefix = 'music-' + mixLabel; // Fallback
+    }
 
+    console.log(`Searching for keys starting with: "${searchPrefix}"`);
+
+    // Filter the global bundle keys
+    const poolIds = Object.keys(window.audioBundle).filter(id => id.startsWith(searchPrefix));
+
+    console.log(`Found ${poolIds.length} matching tracks:`, poolIds);
+
+    if (poolIds.length === 0) {
+        console.error(`❌ No tracks found in audioBundle matching prefix "${searchPrefix}"`);
+        currentMusicPlaying.innerText = "Music: No files found";
+        return;
+    }
+
+    while (!stopFlag.stop) {
+        console.log("Shuffling pool and starting loop...");
+        const list = shuffle([...poolIds]);
+        
+        for (const id of list) {
+            if (stopFlag.stop) {
+                console.log("Stop flag detected. Exiting loop.");
+                return;
+            }
+
+            const audio = document.getElementById(id);
+            
+            if (!audio) {
+                console.error(`❌ Element with ID "${id}" not found in DOM, skipping...`);
+                continue;
+            }
+
+            console.log(`▶️ Playing track: ${id}`);
             audio.currentTime = 0;
-            audio.volume = 1; // Reset volume to full for the new song
-            currentMusicPlaying.innerText = "Music Mix [" + mixLabel + "]: " + audio.src.split('/').pop();
+            audio.volume = 1; 
+            currentMusicPlaying.innerText = "Music Mix [" + mixLabel + "]: " + id;
 
             try {
                 await audio.play();
+                console.log(`✅ Playback started for ${id}`);
             } catch (err) {
-                console.log("Playback blocked by OS, waiting for next song...");
+                console.error(`❌ Playback failed for ${id}:`, err);
                 continue; 
             }
 
-            // Use a Promise that resolves if the song ends OR if the stopFlag is triggered
+            // Wait for song to end or stop flag
             await new Promise(async resolve => {
-                audio.onended = resolve;
+                audio.onended = () => {
+                    console.log(`Song ended: ${id}`);
+                    resolve();
+                };
                 
-                // Check for stop flag frequently
                 const checkStop = setInterval(async () => {
                     if (stopFlag.stop) {
                         clearInterval(checkStop);
-                        await fadeOutAndStop(audio, 1000); // Fade out over 1 second
+                        console.log(`Stopping ${id} via fadeout...`);
+                        await fadeOutAndStop(audio, 1000);
                         resolve();
                     }
                 }, 100);
@@ -382,16 +481,25 @@ async function loadVoiceAudios(selectedVoice) {
     voiceAudios = {};
     if (selectedVoice === 'none') return;
 
-    const voiceEvents = ['begin', 'resume', 'pause', 'end', 'active', 'resting'];
-    for (const prefix of voiceEvents) {
-        voiceAudios[prefix] = [];
-        for (let i = 1; i <= 4; i++) {
-             const path = `audio/voices/${selectedVoice}/${prefix}00${i}.mp3`;
-            const audio = new Audio(path);
-            voiceAudios[prefix].push(audio);
-        }
+    var voiceEvents = ['begin', 'resume', 'pause', 'end', 'active', 'resting'];
+    
+    for (var i = 0; i < voiceEvents.length; i++) {
+        var eventName = voiceEvents[i];
+        voiceAudios[eventName] = [];
+        
+        // Construct search prefix: e.g., "voice-Alice-begin"
+        var searchPrefix = "voice-" + selectedVoice + "-" + eventName;
+        
+        // Find all keys in the bundle that match this prefix
+        var matches = Object.keys(window.audioBundle).filter(function(id) { 
+            return id.indexOf(searchPrefix) === 0; 
+        });
+        
+        console.log("Voice Loading: Found " + matches.length + " clips for " + searchPrefix);
+        voiceAudios[eventName] = matches;
     }
 }
+
 
 function buildPhaseEvents(phase, isFirstPhase) {
     const events = [];
@@ -460,20 +568,36 @@ startBtn.addEventListener('click', async () => {
 
 let firedEvents = new Set();
 function fireEvent(event) {
-    const phase = event.phase;
+    var phase = event.phase;
     
     switch (event.type) {
         case EventType.VOICE:
             if (voiceSelect.value === 'none') return;
-            const vAuds = voiceAudios[event.description];
-            if (vAuds && vAuds.length > 0) vAuds[Math.floor(Math.random() * vAuds.length)].play();
+            var vIds = voiceAudios[event.description];
+            if (vIds && vIds.length > 0) {
+                var randomId = vIds[Math.floor(Math.random() * vIds.length)];
+                var audio = document.getElementById(randomId);
+                if (audio) {
+                    console.log("🗣️ Playing Voice: " + randomId);
+                    audio.currentTime = 0;
+                    audio.play();
+                }
+            }
             break;
 
         case EventType.CHEER:
             if (voiceSelect.value === 'none') return;
-            const cPrefix = (phase === "work") ? 'active' : 'resting';
-            const cAuds = voiceAudios[cPrefix];
-            if (cAuds && cAuds.length > 0) cAuds[Math.floor(Math.random() * cAuds.length)].play();
+            var cPrefix = (phase === "work") ? 'active' : 'resting';
+            var cIds = voiceAudios[cPrefix];
+            if (cIds && cIds.length > 0) {
+                var randomId = cIds[Math.floor(Math.random() * cIds.length)];
+                var audio = document.getElementById(randomId);
+                if (audio) {
+                    console.log("🗣️ Playing Cheer: " + randomId);
+                    audio.currentTime = 0;
+                    audio.play();
+                }
+            }
             break;
 
         case EventType.MUSIC:
@@ -483,26 +607,24 @@ function fireEvent(event) {
             break;
 
          case EventType.BELL:
-            const sfxLabel = (phase === "work") ? document.getElementById('workBellSelect').value : document.getElementById('relaxBellSelect').value;
-            console.log("🔔 Attempting to ring bell for phase: " + phase + " | Label: " + sfxLabel);
+            var sfxLabel = (phase === "work") ? document.getElementById('workBellSelect').value : document.getElementById('relaxBellSelect').value;
+            if (sfxLabel === 'none') return;
             
-            const allSfx = Array.from(document.querySelectorAll('.sfx'));
-            const bellAudio = allSfx.find(a => a.getAttribute('label') === sfxLabel);
-            
+            // Ensure the sfx- prefix is present for the ID
+            var bellId = sfxLabel.indexOf('sfx-') === 0 ? sfxLabel : 'sfx-' + sfxLabel;
+            var bellAudio = document.getElementById(bellId);
+
             if (bellAudio) { 
-                console.log("✅ Audio element found: " + bellAudio.src);
                 bellAudio.currentTime = 0; 
-                bellAudio.play().then(() => {
-                    console.log("🔊 Bell played successfully!");
-                }).catch(err => {
-                    console.error("❌ Playback failed for " + sfxLabel + ":", err);
-                });
+                bellAudio.play();
             } else {
-                console.error("🚫 No audio element found with label: " + sfxLabel);
+                console.error("🚫 No audio element found with id: " + bellId);
             }
             break;
     }
 }
+
+
 window.addEventListener('DOMContentLoaded', () => {
     const settingsDiv = document.getElementById('settings');
     const toggleIcon = document.getElementById('session-controls-minified');
@@ -585,6 +707,7 @@ function animate() {
 </script>
 
 <script>
+/*
 // register service worker
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -593,6 +716,7 @@ if ('serviceWorker' in navigator) {
             .catch(err => console.warn('Service Worker registration failed:', err));
     });
 }
+*/
 </script>
 
 </body>

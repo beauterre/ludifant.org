@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PWA Audio Bundle Builder (Strict Prefix)</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f2; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { color: #876f4e; text-align: center; }
+        .setup-info { background: #eef2f3; padding: 15px; border-radius: 8px; border-left: 5px solid #876f4e; margin-bottom: 20px; font-size: 0.9rem; line-height: 1.5; }
+        .prefix-area { background: #fffbe6; padding: 15px; border: 1px solid #ffe58f; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .prefix-area label { font-weight: bold; }
+        .prefix-area input { padding: 8px; width: 200px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; }
+        .upload-area { border: 2px dashed #ccc; padding: 20px; text-align: center; margin-bottom: 20px; cursor: pointer; background: #fafafa; }
+        .upload-area:hover { border-color: #876f4e; background: #fdfdfb; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        input[type="text"] { padding: 5px; width: 200px; border: 1px solid #ccc; border-radius: 4px; }
+        .actions { display: flex; gap: 10px; justify-content: center; align-items: center; }
+        button { padding: 10px 20px; cursor: pointer; border-radius: 6px; border: none; font-weight: bold; }
+        .btn-generate { background: #876f4e; color: white; font-size: 1.2rem; }
+        .btn-clear { background: #ccc; }
+        .btn-download { background: #27ae60; color: white; font-size: 1.2rem; display: none; }
+        #output { width: 100%; height: 300px; margin-top: 20px; font-family: monospace; white-space: pre; background: #222; color: #0f0; padding: 10px; box-sizing: border-box; border-radius: 8px; overflow: auto; }
+        .file-info { font-size: 0.8rem; color: #666; }
+        code { background: #ddd; padding: 2px 4px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📦 Distributed Audio Bundle Builder</h1>
+    
+    <div class="setup-info">
+        <strong>Correct Workflow:</strong><br>
+        1. Enter a <b style="color:red">Prefix</b> (e.g., <code style="color:red">Alice-</code>). This will be prepended to every label in the final JS.<br>
+        2. Drag in the files for that folder.<br>
+        3. Generate →\rightarrow→ Download →\rightarrow→ Clear.
+    </div>
+
+    <div class="prefix-area">
+        <label for="prefixInput">Current Batch Prefix:</label>
+        <input type="text" id="prefixInput" placeholder="e.g. Alice-" value="">
+        <small>(Added to labels during generation)</small>
+    </div>
+
+    <div class="upload-area" id="dropZone">
+        <strong>Drop MP3 files here</strong> or click to browse
+        <input type="file" id="fileInput" multiple accept="audio/mpeg" style="display:none;">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Label (ID)</th>
+                <th>Size</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="fileList"></tbody>
+    </table>
+
+    <div class="actions">
+        <button class="btn-clear" onclick="clearList()">Clear All</button>
+        <button class="btn-generate" onclick="generateBundle()">Generate JS Bundle</button>
+        <button class="btn-download" id="downloadBtn" onclick="downloadFile()">⬇️ Download .js File</button>
+    </div>
+
+    <textarea id="output" readonly placeholder="The generated JavaScript code will appear here..."></textarea>
+</div>
+
+<script>
+    var dropZone = document.getElementById('dropZone');
+    var fileInput = document.getElementById('fileInput');
+    var fileListElement = document.getElementById('fileList');
+    var output = document.getElementById('output');
+    var downloadBtn = document.getElementById('downloadBtn');
+    var prefixInput = document.getElementById('prefixInput');
+    
+    var filesArray = [];
+
+    dropZone.onclick = function() { fileInput.click(); };
+    fileInput.onchange = function(e) { handleFiles(e.target.files); };
+
+    dropZone.ondragover = function(e) { 
+        e.preventDefault(); 
+        dropZone.style.borderColor = '#876f4e'; 
+    };
+    dropZone.ondragleave = function() { 
+        dropZone.style.borderColor = '#ccc'; 
+    };
+    dropZone.ondrop = function(e) {
+        e.preventDefault();
+        dropZone.style.borderColor = '#ccc';
+        handleFiles(e.dataTransfer.files);
+    };
+
+    function handleFiles(files) {
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.type !== "audio/mpeg" && !file.name.toLowerCase().endsWith('.mp3')) continue;
+            
+            var defaultLabel = file.name.replace(/\.[^/.]+$/, "").replace(/\s+/g, '_').replace(/\./g, '_');
+            
+            filesArray.push({
+                file: file,
+                label: defaultLabel
+            });
+        }
+        renderList();
+    }
+
+    function renderList() {
+        fileListElement.innerHTML = '';
+        for (var i = 0; i < filesArray.length; i++) {
+            var item = filesArray[i];
+            var row = document.createElement('tr');
+            
+            var cellName = document.createElement('td');
+            cellName.textContent = item.file.name;
+            
+            var cellLabel = document.createElement('td');
+            var labelInput = document.createElement('input');
+            labelInput.type = 'text';
+            labelInput.value = item.label;
+            labelInput.oninput = function() { updateLabel(i, this.value); };
+            cellLabel.appendChild(labelInput);
+            
+            var cellSize = document.createElement('td');
+            cellSize.className = 'file-info';
+            cellSize.textContent = (item.file.size / 1024).toFixed(1) + ' KB';
+            
+            var cellAction = document.createElement('td');
+            var btnDelete = document.createElement('button');
+            btnDelete.textContent = '❌';
+            btnDelete.onclick = function() { removeFile(i); };
+            cellAction.appendChild(btnDelete);
+            
+            row.appendChild(cellName);
+            row.appendChild(cellLabel);
+            row.appendChild(cellSize);
+            row.appendChild(cellAction);
+            fileListElement.appendChild(row);
+        }
+    }
+
+    function updateLabel(index, value) { filesArray[index].label = value; }
+    function removeFile(index) { filesArray.splice(index, 1); renderList(); }
+    function clearList() { 
+        filesArray = []; 
+        renderList(); 
+        output.value = ''; 
+        downloadBtn.style.display = 'none'; 
+    }
+
+    async function generateBundle() {
+        if (filesArray.length === 0) {
+            alert("Please add some files first!");
+            return;
+        }
+
+        output.value = "Processing Base64... please wait...";
+        
+        // Get the current prefix value from the input box
+        var currentPrefix = prefixInput.value;
+        
+        var bundle = "Object.assign(window.audioBundle, {\n";
+
+        for (var i = 0; i < filesArray.length; i++) {
+            var item = filesArray[i];
+            try {
+                var base64 = await fileToBase64(item.file);
+                
+                // FINAL ASSEMBLY: Prefix + Label
+                var finalKey = currentPrefix + item.label;
+                
+                bundle = bundle + '  "' + finalKey + '": "' + base64 + '",\n';
+            } catch (e) {
+                console.error("Error processing " + item.file.name, e);
+            }
+        }
+
+        bundle = bundle + "});";
+        output.value = bundle;
+        downloadBtn.style.display = 'block';
+    }
+
+    function fileToBase64(file) {
+        return new Promise(function(resolve, reject) {
+            var reader = new FileReader();
+            reader.onload = function() { resolve(reader.result); };
+            reader.onerror = function(error) { reject(error); };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function downloadFile() {
+        var text = output.value;
+        var blob = new Blob([text], { type: 'text/javascript' });
+        var anchor = document.createElement('a');
+        anchor.download = 'audio-bundle-part.js';
+        anchor.href = window.URL.createObjectURL(blob);
+        anchor.click();
+        window.URL.revokeObjectURL(anchor.href);
+    }
+</script>
+</body>
+</html>

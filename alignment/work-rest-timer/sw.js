@@ -12,96 +12,14 @@ const urlsToCache = [
   
   
   // audio files
-  './audio/music/work/work-music001.mp3',
-  './audio/music/work/work-music002.mp3',
-  './audio/music/work/work-music003.mp3',
-  './audio/music/work/work-music004.mp3',
-  './audio/music/work/work-music005.mp3',
-  './audio/music/work/work-music006.mp3',
-  './audio/music/work/work-music007.mp3',
-  './audio/music/work/work-music008.mp3',
-  './audio/music/work/work-music009.mp3',
-  './audio/music/work/work-music010.mp3',
-  './audio/music/work/work-music011.mp3',
-  './audio/music/work/work-music012.mp3',
-  './audio/music/work/work-music013.mp3',
-  './audio/music/relax/relax-music001.mp3',
-  './audio/music/relax/relax-music002.mp3',
-  './audio/music/relax/relax-music003.mp3',
-  './audio/music/relax/relax-music004.mp3',
-  './audio/sfx/work-bell.mp3',
-  './audio/sfx/none.mp3',
-  './audio/sfx/relax-bell.mp3',
-
-  // voices (Alice)
-  './audio/voices/Alice/begin001.mp3',
-  './audio/voices/Alice/begin002.mp3',
-  './audio/voices/Alice/begin003.mp3',
-  './audio/voices/Alice/pause001.mp3',
-  './audio/voices/Alice/pause002.mp3',
-  './audio/voices/Alice/pause003.mp3',
-  './audio/voices/Alice/resume001.mp3',
-  './audio/voices/Alice/resume002.mp3',
-  './audio/voices/Alice/resume003.mp3',
-  './audio/voices/Alice/end001.mp3',
-  './audio/voices/Alice/end002.mp3',
-  './audio/voices/Alice/end003.mp3',
-  './audio/voices/Alice/active001.mp3',
-  './audio/voices/Alice/active002.mp3',
-  './audio/voices/Alice/active003.mp3',
-  './audio/voices/Alice/active004.mp3',
-  './audio/voices/Alice/resting001.mp3',
-  './audio/voices/Alice/resting002.mp3',
-  './audio/voices/Alice/resting003.mp3',
-  './audio/voices/Alice/resting004.mp3',
-  
-  // voices (Hjalmar)
-  './audio/voices/Hjalmar/begin001.mp3',
-  './audio/voices/Hjalmar/begin002.mp3',
-  './audio/voices/Hjalmar/begin003.mp3',
-  './audio/voices/Hjalmar/pause001.mp3',
-  './audio/voices/Hjalmar/pause002.mp3',
-  './audio/voices/Hjalmar/pause003.mp3',
-  './audio/voices/Hjalmar/resume001.mp3',
-  './audio/voices/Hjalmar/resume002.mp3',
-  './audio/voices/Hjalmar/resume003.mp3',
-  './audio/voices/Hjalmar/end001.mp3',
-  './audio/voices/Hjalmar/end002.mp3',
-  './audio/voices/Hjalmar/end003.mp3',
-  './audio/voices/Hjalmar/active001.mp3',
-  './audio/voices/Hjalmar/active002.mp3',
-  './audio/voices/Hjalmar/active003.mp3',
-  './audio/voices/Hjalmar/active004.mp3',
-  './audio/voices/Hjalmar/resting001.mp3',
-  './audio/voices/Hjalmar/resting002.mp3',
-  './audio/voices/Hjalmar/resting003.mp3',
-  './audio/voices/Hjalmar/resting004.mp3',
-  
-  
- // voices (none)
-  './audio/voices/none/begin001.mp3',
-  './audio/voices/none/begin002.mp3',
-  './audio/voices/none/begin003.mp3',
-  './audio/voices/none/pause001.mp3',
-  './audio/voices/none/pause002.mp3',
-  './audio/voices/none/pause003.mp3',
-  './audio/voices/none/resume001.mp3',
-  './audio/voices/none/resume002.mp3',
-  './audio/voices/none/resume003.mp3',
-  './audio/voices/none/end001.mp3',
-  './audio/voices/none/end002.mp3',
-  './audio/voices/none/end003.mp3',
-  './audio/voices/none/active001.mp3',
-  './audio/voices/none/active002.mp3',
-  './audio/voices/none/active003.mp3',
-  './audio/voices/none/active004.mp3',
-  './audio/voices/none/resting001.mp3',
-  './audio/voices/none/resting002.mp3',
-  './audio/voices/none/resting003.mp3',
-  './audio/voices/none/resting004.mp3' 
-
-
-  
+  './audio-bundle/audio-bundle-part-music-none.js' 
+  './audio-bundle/audio-bundle-part-music-relax.js' 
+  './audio-bundle/audio-bundle-part-music-work.js' 
+  './audio-bundle/audio-bundle-part-sfx-bells.js' 
+  './audio-bundle/audio-bundle-part-voice-none.js' 
+  './audio-bundle/audio-bundle-part-voice-Alice.js' 
+  './audio-bundle/audio-bundle-part-voice-Hjalmar.js' 
+ 
 ];
 
 self.addEventListener('install', event => {

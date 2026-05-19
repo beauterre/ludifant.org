@@ -1,0 +1,27 @@
+var none_url="data:audio/mpeg;base64,SUQzAwAAAAAAFgAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/40jEAAAAAAAAAAAAWGluZwAAAA8AAAADAAAB+ABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAAKTEFNRTMuMTAwBCgAAAAAAAAAABUIJAR4IQABmgAAAfj3Cjv0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/4xjEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/4xjEOwAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/4xjEdgAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=";
+Object.assign(window.audioBundle, {
+  "voice-none-begin003": none_url,
+  "voice-none-begin004": none_url,
+  "voice-none-end001": none_url,
+  "voice-none-end002": none_url,
+  "voice-none-end003": none_url,
+  "voice-none-end004": none_url,
+  "voice-none-pause001": none_url,
+  "voice-none-pause002": none_url,
+  "voice-none-pause003": none_url,
+  "voice-none-pause004": none_url,
+  "voice-none-resting001": none_url,
+  "voice-none-resting002": none_url,
+  "voice-none-resting003": none_url,
+  "voice-none-resting004": none_url,
+  "voice-none-resume001": none_url,
+  "voice-none-resume002": none_url,
+  "voice-none-resume003": none_url,
+  "voice-none-resume004": none_url,
+  "voice-none-active001": none_url,
+  "voice-none-active002": none_url,
+  "voice-none-active003": none_url,
+  "voice-none-active004": none_url,
+  "voice-none-begin001": none_url,
+  "voice-none-begin002": none_url
+});
