@@ -12,12 +12,12 @@ const urlsToCache = [
   
   
   // audio files
-  './audio-bundle/audio-bundle-part-music-none.js' 
-  './audio-bundle/audio-bundle-part-music-relax.js' 
-  './audio-bundle/audio-bundle-part-music-work.js' 
-  './audio-bundle/audio-bundle-part-sfx-bells.js' 
-  './audio-bundle/audio-bundle-part-voice-none.js' 
-  './audio-bundle/audio-bundle-part-voice-Alice.js' 
+  './audio-bundle/audio-bundle-part-music-none.js', 
+  './audio-bundle/audio-bundle-part-music-relax.js', 
+  './audio-bundle/audio-bundle-part-music-work.js', 
+  './audio-bundle/audio-bundle-part-sfx-bells.js', 
+  './audio-bundle/audio-bundle-part-voice-none.js', 
+  './audio-bundle/audio-bundle-part-voice-Alice.js', 
   './audio-bundle/audio-bundle-part-voice-Hjalmar.js' 
  
 ];
