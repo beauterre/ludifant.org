@@ -1,0 +1,192 @@
+ Volume in drive D is DATA
+ Volume Serial Number is 7E78-F5A1
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer
+
+19-05-2026  10:18    <DIR>          .
+19-05-2026  10:18    <DIR>          ..
+19-05-2026  10:15    <DIR>          audio
+19-05-2026  10:15    <DIR>          img
+19-05-2026  10:15            23.259 index.html
+19-05-2026  10:15    <DIR>          lib
+19-05-2026  10:15               421 manifest.json
+19-05-2026  10:15             1.319 README.md
+19-05-2026  10:15             4.776 sw.js
+19-05-2026  10:18                 0 tempdir.txt
+19-05-2026  10:15             1.556 test-zenbackjs.html
+19-05-2026  10:15            18.146 work-rest-app-working.html
+19-05-2026  10:15            24.172 work-rest-app.html
+19-05-2026  10:15             5.483 zenback.js
+               9 File(s)         79.132 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\audio
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15    <DIR>          music
+19-05-2026  10:15    <DIR>          sfx
+19-05-2026  10:15    <DIR>          voices
+               0 File(s)              0 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\audio\music
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15    <DIR>          none
+19-05-2026  10:15    <DIR>          relax
+19-05-2026  10:15    <DIR>          work
+               0 File(s)              0 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\audio\music\none
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15            13.772 none.mp3
+               1 File(s)         13.772 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\audio\music\relax
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15         8.225.239 relax-music001.mp3
+19-05-2026  10:15         8.286.679 relax-music002.mp3
+19-05-2026  10:15         8.291.479 relax-music003.mp3
+19-05-2026  10:15         8.166.679 relax-music004.mp3
+               4 File(s)     32.970.076 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\audio\music\work
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15             3.993 work-music001.mid
+19-05-2026  10:15         4.317.772 work-music001.mp3
+19-05-2026  10:15                76 work-music001.txt
+19-05-2026  10:15                76 work-music002..txt
+19-05-2026  10:15            10.012 work-music002.mid
+19-05-2026  10:15         4.314.010 work-music002.mp3
+19-05-2026  10:15         4.314.010 work-music003.mp3
+19-05-2026  10:15         4.314.010 work-music004.mp3
+19-05-2026  10:15         4.336.263 work-music005.mp3
+19-05-2026  10:15         4.336.263 work-music006.mp3
+19-05-2026  10:15         5.417.732 work-music007.mp3
+19-05-2026  10:15         5.176.988 work-music008.mp3
+19-05-2026  10:15         4.337.517 work-music009.mp3
+19-05-2026  10:15         4.697.379 work-music010.mp3
+19-05-2026  10:15         4.817.125 work-music011.mp3
+19-05-2026  10:15         4.337.517 work-music012.mp3
+19-05-2026  10:15         5.777.595 work-music013.mp3
+              17 File(s)     60.508.338 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\audio\sfx
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15           225.001 bell01.mp3
+19-05-2026  10:15            97.389 bell02.mp3
+19-05-2026  10:15            49.581 bell03.mp3
+19-05-2026  10:15            25.389 bell04.mp3
+19-05-2026  10:15            25.389 bell05.mp3
+19-05-2026  10:15            25.389 bell06.mp3
+19-05-2026  10:15            49.581 bell07.mp3
+19-05-2026  10:15            49.581 bell08.mp3
+19-05-2026  10:15            49.581 bell09.mp3
+19-05-2026  10:15            25.389 bell10.mp3
+19-05-2026  10:15            49.581 bell11.mp3
+19-05-2026  10:15            49.581 bell12.mp3
+19-05-2026  10:15            49.581 bell13.mp3
+19-05-2026  10:15            49.581 bell14.mp3
+19-05-2026  10:15            12.717 bell15.mp3
+19-05-2026  10:15            12.717 bell16.mp3
+19-05-2026  10:15            12.717 bell17.mp3
+19-05-2026  10:15            12.717 bell18.mp3
+19-05-2026  10:15             9.411 bell19.mp3
+19-05-2026  10:15                 2 dir.txt
+19-05-2026  10:15            13.772 none.mp3
+              21 File(s)        894.647 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\audio\voices
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15    <DIR>          Alice
+19-05-2026  10:15    <DIR>          none
+               0 File(s)              0 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\audio\voices\Alice
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15            32.059 active001.mp3
+19-05-2026  10:15            25.790 active002.mp3
+19-05-2026  10:15            25.372 active003.mp3
+19-05-2026  10:15            25.372 active004.mp3
+19-05-2026  10:15            47.941 begin001.mp3
+19-05-2026  10:15            29.551 begin002.mp3
+19-05-2026  10:15            45.491 begin003.mp3
+19-05-2026  10:15            45.491 begin004.mp3
+19-05-2026  10:15            61.734 end001.mp3
+19-05-2026  10:15            66.332 end002.mp3
+19-05-2026  10:15            66.332 end003.mp3
+19-05-2026  10:15            60.898 end004.mp3
+19-05-2026  10:15            49.613 pause001.mp3
+19-05-2026  10:15            56.301 pause002.mp3
+19-05-2026  10:15            43.762 pause003.mp3
+19-05-2026  10:15            54.686 pause004.mp3
+19-05-2026  10:15            52.178 resting001.mp3
+19-05-2026  10:15            60.898 resting002.mp3
+19-05-2026  10:15           170.821 resting003.mp3
+19-05-2026  10:15            49.613 resting004.mp3
+19-05-2026  10:15            53.850 resume001.mp3
+19-05-2026  10:15            38.803 resume002.mp3
+19-05-2026  10:15            65.135 resume003.mp3
+19-05-2026  10:15            65.135 resume004.mp3
+              24 File(s)      1.293.158 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\audio\voices\none
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15            13.772 active001.mp3
+19-05-2026  10:15            13.772 active002.mp3
+19-05-2026  10:15            13.772 active003.mp3
+19-05-2026  10:15            13.772 active004.mp3
+19-05-2026  10:15            13.772 begin001.mp3
+19-05-2026  10:15            13.772 begin002.mp3
+19-05-2026  10:15            13.251 begin003.mp3
+19-05-2026  10:15            13.251 begin004.mp3
+19-05-2026  10:15            13.772 end001.mp3
+19-05-2026  10:15            13.772 end002.mp3
+19-05-2026  10:15            13.772 end003.mp3
+19-05-2026  10:15            13.772 end004.mp3
+19-05-2026  10:15            13.772 pause001.mp3
+19-05-2026  10:15            13.772 pause002.mp3
+19-05-2026  10:15            13.772 pause003.mp3
+19-05-2026  10:15            13.251 pause004.mp3
+19-05-2026  10:15            13.251 resting001.mp3
+19-05-2026  10:15            13.772 resting002.mp3
+19-05-2026  10:15            13.772 resting003.mp3
+19-05-2026  10:15            13.772 resting004.mp3
+19-05-2026  10:15            13.251 resume001.mp3
+19-05-2026  10:15            13.251 resume002.mp3
+19-05-2026  10:15            13.251 resume003.mp3
+19-05-2026  10:15            13.251 resume004.mp3
+              24 File(s)        326.360 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\img
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15            72.579 icon-192.png
+19-05-2026  10:15           380.097 icon-512.png
+               2 File(s)        452.676 bytes
+
+ Directory of D:\xampp\htdocs\projects2\ludifant.org\alignment\work-rest-timer\lib
+
+19-05-2026  10:15    <DIR>          .
+19-05-2026  10:15    <DIR>          ..
+19-05-2026  10:15            16.733 NoSleep.min.js
+               1 File(s)         16.733 bytes
+
+     Total Files Listed:
+             103 File(s)     96.554.892 bytes
+              35 Dir(s)  210.461.270.016 bytes free

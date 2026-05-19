@@ -2,23 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Work/Rest Session Timer</title>
+<title>Rhythm of Rest – Ludifant.org</title>
 <style>
-
 :root {
-  --background: #f0f0f0;
-  --contrast: #222;
-  --accent1: #ff7f50;
-  --accent2: #6a5acd;
-  --accent3: #20b2aa;
-  --accent4: #ff69b4;
+  --background: #f2ede4;
+  --contrast: #5e4d37;
+  --accent-primary: #876f4e;
+  --accent-secondary: #c48e81;
+  --accent-tertiary: #c2b280;
+  --accent-soft: #b7cda4;
   --button-padding: 16px 32px;
-  --button-font: 2.7rem;
+  --button-font: 2rem;
 }
 
-/* Page layout */
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   background: var(--background);
   color: var(--contrast);
   margin: 0;
@@ -26,731 +24,559 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px; /* vertical spacing between main elements */
+  gap: 25px;
 }
 
-/* Headings */
-h1, h3 {
-  margin: 0;
-  text-align: center;
-}
-h1 {
-  margin-bottom: 15px;
-}
-h3 {
-  margin-bottom: 25px;
-}
+h1, h3 { margin: 0; text-align: center; font-weight: normal; }
+h1 { margin-bottom: 15px; color: rgba(255,255,255,0.7); font-style: italic; }
+h3 { margin-bottom: 25px; font-size: 1.1rem; opacity: 0.8; }
+small { display: block; margin-bottom: 15px; text-align: center; color: #8a8a84; }
 
-/* Small version text */
-small {
-  display: block;
-  margin-bottom: 15px;
-  text-align: center;
-  color: #555;
-}
-
-/* Fieldsets */
 fieldset {
-  border: 5px solid var(--accent1);
-  border-radius: 15px;
+  border: 2px solid var(--accent-primary);
+  border-radius: 20px;
   padding: 25px;
   width: 95%;
   max-width: 600px;
   box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px; /* vertical spacing between children */
-  margin: 0; /* spacing handled by body gap */
+  gap: 15px;
+  margin: 0;
+  background: rgba(255,255,255,0.3);
+  transition: border-color 2.8s ease; /* Add this line for a soft color fade */
 }
 
-/* Legends */
 fieldset > legend {
-  font-weight: bold;
-  padding: 0 10px;
-  color: inherit;
-  font-size: 2.5em;
+  font-weight: normal;
+  padding: 0 15px;
+  color: var(--accent-primary);
+  font-size: 1.5em;
 }
 
-/* Nested fieldsets */
-fieldset fieldset {
-  border-radius: 10px;
+.settings-group {
+  border: 1px solid var(--accent-secondary);
+  border-radius: 15px;
   padding: 15px;
   width: 100%;
   box-sizing: border-box;
-  align-self: stretch;
   gap: 10px;
-}
-fieldset fieldset legend {
-  font-size: 2em;
-}
-
-/* Timer displays */
-#timer, #totaltimer, #state {
-  text-align: center;
-}
-#timer {
-  font-size: 4em;
-  font-weight: bold;
-}
-#totaltimer {
-  font-size: 2em;
-}
-#state {
-  font-size: 2em;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
 }
 
-/* Progress bars */
+.settings-group legend { font-size: 1.2em; color: var(--accent-secondary); padding: 0 10px; }
+
+#timer, #totaltimer, #state { text-align: center; }
+#timer { font-size: 4em; font-weight: bold; color: var(--accent-primary); }
+#totaltimer { font-size: 1.8em; color: var(--accent-secondary); }
+#state { font-size: 1.8em; margin-bottom: 10px; font-style: italic; }
+
 #progress-container, #total-progress-container {
-  width: 100%;
-  height: 25px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #ccc;
-  margin: 10px 0; /* vertical spacing */
+  width: 100%; height: 12px; border-radius: 6px; overflow: hidden;
+  background: #dcd7cf; margin: 10px 0;
 }
-#progress-bar {
-  height: 100%;
-  width: 0%;
-  background: var(--accent3);
-  border-radius: 12px;
-  transition: width 0.3s;
-}
-#total-progress-bar {
-  height: 100%;
-  width: 0%;
-  background: var(--accent2);
-  border-radius: 12px;
-  transition: width 0.3s;
-}
+#progress-bar { height: 100%; width: 0%; background: var(--accent-soft); transition: width 0.3s; }
+#total-progress-bar { height: 100%; width: 0%; background: var(--accent-secondary); transition: width 0.3s; }
 
-/* Buttons */
 button {
-  background: var(--accent4);
-  color: #fff;
-  border: none;
-  border-radius: 15px;
-  padding: var(--button-padding);
-  font-size: var(--button-font);
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 5px 5px 12px rgba(0,0,0,0.2), -5px -5px 12px rgba(255,255,255,0.2);
-  transition: all 0.2s;
-  width: 100%;
-  max-width: 350px;
-  margin-top: 10px; /* spacing above button */
+  background: var(--accent-secondary); color: #fff; border: none; border-radius: 30px;
+  padding: var(--button-padding); font-size: var(--button-font); cursor: pointer;
+  box-shadow: 0 4px 10px rgba(135, 111, 78, 0.3); transition: all 0.3s ease;
+  width: 100%; max-width: 350px; margin-top: 10px;
 }
-button:hover {
-  box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2), inset -4px -4px 10px rgba(255,255,255,0.2);
-}
+button:hover { background: var(--accent-soft); transform: scale(1.02); }
 
-/* Inputs & selects */
 input, select {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 1.2rem;
-  margin: 5px 0; /* vertical spacing */
+  padding: 10px; border-radius: 8px; border: 1px solid var(--accent-soft);
+  background: #fff; width: 100%; box-sizing: border-box; font-size: 1.1rem;
+  margin: 5px 0; color: var(--contrast);
 }
 
-/* Small screens */
+.control-row { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px; }
+.control-row label { flex: 1; font-size: 0.9rem; }
+.control-row select { flex: 2; }
+
 @media (max-width: 400px) {
-  #timer { font-size: 3.5em; }
-  #state { font-size: 1.8em; }
-  button { font-size: 1.3rem; padding: 14px 28px; }
-  #progress-container, #total-progress-container { height: 22px; }
+  #timer { font-size: 3.2em; }
+  button { font-size: 1.5rem; padding: 14px 28px; }
 }
-
-
 </style>
 
-
-
-<!-- NoSleep -->
 <script src="lib/NoSleep.min.js"></script>
-
-<!-- PWA manifest + icons (with versioning) -->
-<link rel="manifest" href="manifest.json?v=20250920-1630">
-<link rel="icon" sizes="192x192" href="img/icon-192.png?v=20250920-1630">
-<link rel="icon" sizes="512x512" href="img/icon-512.png?v=20250920-1630">
-<meta name="theme-color" content="#6a5acd">
-
-<!-- Service Worker -->
-<script>
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js?v=20250920-1630')
-        .then(() => console.log('Service Worker registered'))
-        .catch(err => console.warn('SW registration failed:', err));
-}
-</script>
 </head>
 
 <body>
-<script>
-const noSleep = new NoSleep();
+<script>const noSleep = new NoSleep();</script>
 
-</script>
-
-<small>version 2025-09-20-18:09</small>
-<h1>Work/Rest Session Timer</h1>
+<small>version 2026-05-13-17:00</small>
+<h1 id="mainTitle">Rhythm of Rest</h1>
 <h3 id="date"></h3>
 
-
-<fieldset style="border-color:var(--accent4);color:var(--accent4);">
-  <legend>Session Timer</legend>
-  <div id="debug_last_event" style="display: none;">NO EVENTS <!-- remove style if you want to track events on page for debugging.. --></div>
-  <div id="current_music">NO MUSIC</div>
+<fieldset id="mainFieldset">
+  <div id="current_music" style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 5px;">NO MUSIC</div>
   <div id="state">Not in session</div>
-  
-  <!-- Total session timer -->
   <div id="totaltimer">00:00</div>
-  <div id="total-progress-container" style="width:100%;height:15px;background:#ccc;border-radius:8px;margin:5px 0;">
-    <div id="total-progress-bar" style="width:0%;height:100%;background:#6a5acd;border-radius:8px;"></div>
-  </div>
-
-  <!-- Current phase timer -->
+  <div id="total-progress-container"><div id="total-progress-bar"></div></div>
   <div id="timer">00:00</div>
-  <div id="progress-container" style="width:100%;height:15px;background:#ccc;border-radius:8px;margin:5px 0;">
-    <div id="progress-bar" style="width:0%;height:100%;background:#20b2aa;border-radius:8px;"></div>
-  </div>
-
+  <div id="progress-container"><div id="progress-bar"></div></div>
   <button id="startBtn">Start Session</button>
 </fieldset>
 
-<fieldset style="border-color:var(--accent1);color:var(--accent1);">
-  <legend>
-    <span id="session-controls-minified" style="cursor:pointer;">⚙️</span>
-    Session Controls
-  </legend>
-  <div id="settings">
-    <!-- Your existing session controls content here -->
-    <label>Total Session (min): <input type="number" id="totalDuration" value="120" min="1"></label><br>
-    <label>Work duration (min): <input type="number" id="workDuration" value="10" min="1"></label><br>
-    <label>Rest duration (min): <input type="number" id="restDuration" value="5" min="1"></label><br>
-    <label>Voice: 
-      <select id="voiceSelect">
-        <option value="Alice">Alice</option>
-        <option value="Bob">Bob</option>
-      </select>
-    </label><br><br>
+<fieldset id="optionsFieldset" style="border-color:var(--accent-secondary);color:var(--accent-secondary);">
+  <legend><span id="session-controls-minified" style="cursor:pointer;">⮟ <span style="opacity: 0.5; font-size: 0.5em;">(click to open)</span> </span>Options</legend>
+  <div id="settings" style="display:none; width:100%;">
+    <div class="control-row"><label>Total Session (min):</label><input type="number" id="totalDuration" value="120"></div>
+    <div class="control-row"><label>Work duration (min):</label><input type="number" id="workDuration" value="10"></div>
+    <div class="control-row"><label>Rest duration (min):</label><input type="number" id="restDuration" value="5"></div>
+    
+    <div class="control-row"><label>Voice Persona:</label>
+        <select id="voiceSelect">
+            <option value="none">None (Silence)</option>
+            <option value="Alice">Alice</option>
+            <option value="Hjalmar">Hjalmar</option>
+        </select>
+    </div>
 
-    <fieldset style="border-color:var(--accent2);color:var(--accent2);">
-      <legend>Work with:</legend>
-      <label>Music<input type="checkbox" checked id="workMusic"></label>
-      <label>Voice<input type="checkbox" checked id="workVoice"></label>
-      <label>minuteBell<input type="checkbox" checked id="workBell"></label>
+    <fieldset class="settings-group" style="border-color:var(--accent-tertiary);color:var(--accent-tertiary);">
+      <legend>Work Phase</legend>
+      <div class="control-row"><label>Music Mix:</label>
+        <select id="workMusicSelect">
+            <option value="none">None</option>
+            <option value="workout" selected>Workout Mix</option>
+            <option value="relax">Relax Mix</option>
+        </select>
+      </div>
+      <div class="control-row"><label>Bell Effect:</label>
+        <select id="workBellSelect">
+            <option value="none">None</option>
+            <option value="bell01" selected>bell01</option>
+            <option value="bell02" >bell02</option>
+            <option value="bell03" >bell03</option>
+            <option value="bell04" >bell04</option>
+            <option value="bell05" >bell05</option>
+            <option value="bell06" >bell06</option>
+            <option value="bell07" >bell07</option>
+            <option value="bell08" >bell08</option>
+            <option value="bell09" >bell09</option>
+            <option value="bell10" >bell10</option>
+            <option value="bell11" >bell11</option>
+            <option value="bell12" >bell12</option>
+            <option value="bell13" >bell13</option>
+            <option value="bell14" >bell14</option>
+            <option value="bell15" >bell15</option>
+            <option value="bell16" >bell16</option>
+            <option value="bell17" >bell17</option>
+            <option value="bell18" >bell18</option>
+            <option value="bell19" >bell19</option>
+        </select>
+      </div>
     </fieldset>
 
-    <fieldset style="border-color:var(--accent3);color:var(--accent3);">
-      <legend>Relax with:</legend>
-      <label>Music<input type="checkbox" checked id="relaxMusic"></label>
-      <label>Voice<input type="checkbox" checked id="relaxVoice"></label>
-      <label>minuteBell<input type="checkbox" checked id="relaxBell"></label>
+    <fieldset class="settings-group" style="border-color:var(--accent-soft);color:var(--accent-soft);">
+      <legend>Relax Phase</legend>
+      <div class="control-row"><label>Music Mix:</label>
+        <select id="relaxMusicSelect">
+            <option value="none">None</option>
+            <option value="relax" selected>Relax Mix</option>
+            <option value="workout">Workout Mix</option>
+        </select>
+      </div>
+      <div class="control-row"><label>Bell Effect:</label>
+        <select id="relaxBellSelect">
+            <option value="none">None</option>
+			<option value="bell01" >bell01</option>
+            <option value="bell02" selected>bell02</option>
+            <option value="bell03" >bell03</option>
+            <option value="bell04" >bell04</option>
+            <option value="bell05" >bell05</option>
+            <option value="bell06" >bell06</option>
+            <option value="bell07" >bell07</option>
+            <option value="bell08" >bell08</option>
+            <option value="bell09" >bell09</option>
+            <option value="bell10" >bell10</option>
+            <option value="bell11" >bell11</option>
+            <option value="bell12" >bell12</option>
+            <option value="bell13" >bell13</option>
+            <option value="bell14" >bell14</option>
+            <option value="bell15" >bell15</option>
+            <option value="bell16" >bell16</option>
+            <option value="bell17" >bell17</option>
+            <option value="bell18" >bell18</option>
+            <option value="bell19" >bell19</option>
+        </select>
+      </div>
     </fieldset>
-
   </div>
 </fieldset>
 
-<fieldset style="display: none;">
-<!-- remove style if you want to track audio on page for debugging.. -->
-
-  <legend  style="display: none;">Audio Debug</legend>
-  <!-- Work music -->
-  <audio id="work-music001" src="audio/work-music001.mp3" controls></audio>
-  <audio id="work-music002" src="audio/work-music002.mp3" controls></audio>
-  <audio id="work-music003" src="audio/work-music003.mp3" controls></audio>
-  <audio id="work-music004" src="audio/work-music004.mp3" controls></audio>
-
-    <!-- Minute Bells -->
-  <audio id="work-bell" src="audio/work-bell.mp3" controls></audio>
-  <audio id="relax-bell" src="audio/relax-bell.mp3" controls></audio>
-
-  <!-- Relax music -->
-  <audio id="relax-music001" src="audio/relax-music001.mp3" controls></audio>
-  <audio id="relax-music002" src="audio/relax-music002.mp3" controls></audio>
-  <audio id="relax-music003" src="audio/relax-music003.mp3" controls></audio>
-  <audio id="relax-music004" src="audio/relax-music004.mp3" controls></audio>
-
-  <!-- Event Voices -->
-  <audio id="begin001" src="audio/Alice/begin001.mp3" controls></audio>
-  <audio id="begin002" src="audio/Alice/begin002.mp3" controls></audio>
-  <audio id="begin003" src="audio/Alice/begin003.mp3" controls></audio>
-  <audio id="end001" src="audio/Alice/end001.mp3" controls></audio>
-  <audio id="end002" src="audio/Alice/end002.mp3" controls></audio>
-  <audio id="end003" src="audio/Alice/end003.mp3" controls></audio>
+<!-- Hidden Audio Library -->
+<div style="display: none;">
+  <!-- WORK MUSIC MIXES -->
+  <audio class="music" label="workout" src="audio/music/work/work-music001.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music002.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music003.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music004.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music005.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music006.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music007.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music008.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music009.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music010.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music011.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music012.mp3"></audio>
+  <audio class="music" label="workout" src="audio/music/work/work-music013.mp3"></audio>
   
-  <!-- Cheer Voices -->
-  <audio id="active001" src="audio/Alice/active001.mp3" controls></audio>
-  <audio id="active002" src="audio/Alice/active002.mp3" controls></audio>
-  <audio id="active003" src="audio/Alice/active003.mp3" controls></audio>
-  <audio id="active004" src="audio/Alice/active004.mp3" controls></audio>
-  <audio id="resting001" src="audio/Alice/resting001.mp3" controls></audio>
-  <audio id="resting002" src="audio/Alice/resting002.mp3" controls></audio>
-  <audio id="resting003" src="audio/Alice/resting003.mp3" controls></audio>
-  <audio id="resting004" src="audio/Alice/resting004.mp3" controls></audio>
+  <!-- RELAX MUSIC MIXES -->
+  <audio class="music" label="relax" src="audio/music/relax/relax-music001.mp3"></audio>
+  <audio class="music" label="relax" src="audio/music/relax/relax-music002.mp3"></audio>
+  <audio class="music" label="relax" src="audio/music/relax/relax-music003.mp3"></audio>
+  <audio class="music" label="relax" src="audio/music/relax/relax-music004.mp3"></audio>
+  
+  <!-- SILENCE MUSIC -->
+  <audio class="music" label="none" src="audio/music/none/none.mp3"></audio>
+  
+  <!-- SFX BELLS -->
+  <audio class="sfx" label="bell01" src="audio/sfx/bell01.mp3"></audio>
+  <audio class="sfx" label="bell02" src="audio/sfx/bell02.mp3"></audio>
+  <audio class="sfx" label="bell03" src="audio/sfx/bell03.mp3"></audio>
+  <audio class="sfx" label="bell04" src="audio/sfx/bell04.mp3"></audio>
+  <audio class="sfx" label="bell05" src="audio/sfx/bell05.mp3"></audio>
+  <audio class="sfx" label="bell06" src="audio/sfx/bell06.mp3"></audio>
+  <audio class="sfx" label="bell07" src="audio/sfx/bell07.mp3"></audio>
+  <audio class="sfx" label="bell08" src="audio/sfx/bell08.mp3"></audio>
+  <audio class="sfx" label="bell09" src="audio/sfx/bell09.mp3"></audio>
+  <audio class="sfx" label="bell10" src="audio/sfx/bell10.mp3"></audio>
+  <audio class="sfx" label="bell11" src="audio/sfx/bell11.mp3"></audio>
+  <audio class="sfx" label="bell12" src="audio/sfx/bell12.mp3"></audio>
+  <audio class="sfx" label="bell13" src="audio/sfx/bell13.mp3"></audio>
+  <audio class="sfx" label="bell14" src="audio/sfx/bell14.mp3"></audio>
+  <audio class="sfx" label="bell15" src="audio/sfx/bell15.mp3"></audio>
+  <audio class="sfx" label="bell16" src="audio/sfx/bell16.mp3"></audio>
+  <audio class="sfx" label="bell17" src="audio/sfx/bell17.mp3"></audio>
+  <audio class="sfx" label="bell18" src="audio/sfx/bell18.mp3"></audio>
+  <audio class="sfx" label="bell19" src="audio/sfx/bell19.mp3"></audio>
+  <audio class="sfx" label="none" src="audio/sfx/none.mp3"></audio>
+</div>
+ <script src="zenback.js"></script>
+    
+    <script>
+        // --- Zen Background Integration ---
+        
+        // 1. Helper to convert Hex (#f2ede4) to RGB {r,g,b}
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : { r: 242, g: 237, b: 228 }; // Fallback to --background
+        }
 
+        // 2. Get the actual color from your CSS variables
+        const style = getComputedStyle(document.body);
+        const bgHex = style.getPropertyValue('--background').trim();
+        const zenColor = hexToRgb(bgHex);
+        
+        // 3. Random Seed
+        const seed = 50202;//Math.floor(Math.random() * 100000);
+        
+        // 4. Initialize
+        createZenBack(zenColor, seed);
 
-</fieldset>
-
-<script author="hjalmar">
-// Assets
-
-// Audio arrays
-const voiceIds = [// cheers
-					'active001','active002','active003','active004',
-					'resting001','resting002','resting003','resting004',
-				  // events
-				  'begin001','begin002','begin003',
-				  'resume001','resume002','resume003',
-				  'pause001','pause002','pause003',
-				  'end001','end002','end003'
-				 ];
-const workMusicIds = ['work-music001','work-music002','work-music003','work-music004','work-music005','work-music006','work-music007','work-music008','work-music009','work-music010','work-music011','work-music012','work-music013'];
-const relaxMusicIds = ['relax-music001','relax-music002','relax-music003','relax-music004'];
-</script>
-<script author="hjalmar && AI">
-
-//DOM elements
+       
+    </script>
+<script>
 const startBtn = document.getElementById('startBtn');
-const timerEl = document.getElementById('timer'); // phase timer
-const progressBar = document.getElementById('progress-bar'); // phase progress
-const totaltimerEl = document.getElementById('totaltimer'); // total session timer
-const totalProgressBar = document.getElementById('total-progress-bar'); // total progress
+const timerEl = document.getElementById('timer'); 
+const progressBar = document.getElementById('progress-bar'); 
+const totaltimerEl = document.getElementById('totaltimer'); 
+const totalProgressBar = document.getElementById('total-progress-bar'); 
 const stateEl = document.getElementById('state');
-const debugLastEventEl = document.getElementById('debug_last_event');
+const mainFieldset = document.getElementById('mainFieldset');
+ const optionsFieldset = document.getElementById('optionsFieldset');
 const currentMusicPlaying = document.getElementById('current_music');
 const voiceSelect = document.getElementById('voiceSelect');
 const dateEl = document.getElementById('date');
-const now = new Date();
-dateEl.innerText = "session: "+now.toLocaleString(); // e.g., "9/20/2025, 10:55:00 AM"
+
+dateEl.innerText = "session: " + new Date().toLocaleString(); 
+
 let currentMusicStopFlag = null;
+let voiceAudios = {}; 
+let TotalMins = 120, workMins = 10, restMins = 5;
+let currentState = "idle", phaseElapsed = 0, totalElapsed = 0, phaseDuration = 0;
+let sessionStarted, phaseStarted;
+
+const EventType = { VOICE: "voice", MUSIC: "music", BELL: "bell", CHEER: "cheer" };
+
+function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
 
 
-let voiceAudios = {}; // will hold all loaded audio elements
+async function fadeOutAndStop(audio, duration = 1500) {
+    const startVolume = audio.volume;
+    const steps = 20; // Number of volume increments
+    const interval = duration / steps;
 
-// Configuration
-let TotalMins = 120; // total session
-let workMins = 10;
-let restMins = 5;
-
-// State
-let currentState = "idle"; // idle | work | rest | done
-let phaseElapsed = 0;      // seconds in current phase
-let totalElapsed = 0;      // seconds in whole session
-let phaseDuration = 0;
-let lastEvent = "";
-
-const EventType = {
-    VOICE: "voice",
-    MUSIC: "music",
-    BELL: "bell",
-    CHEER: "cheer"
-};
-
-// ==== music stuff ====
-
-
-// Helpers
-function shuffle(array){ return array.sort(()=>Math.random()-0.5); }
-
-function setMusicVolume(ids, volume){
-    ids.forEach(id => {
-        const audio = document.getElementById(id);
-        if(audio) audio.volume = volume; // 0.0 to 1.0
-		 if(volume === 0) {
-                audio.pause();
-                audio.currentTime = 0;
-            }
-    });
+    for (let i = 0; i < steps; i++) {
+        if (audio.paused) break;
+        audio.volume = Math.max(0, startVolume - (startVolume * (i / steps)));
+        await new Promise(resolve => setTimeout(resolve, interval));
+    }
+    audio.pause();
 }
 
-// Play randomized playlist with 2s pause, loops until stopFlag.stop = true
-async function playPlaylist(ids, stopFlag){
-    while(!stopFlag.stop){
-        const list = shuffle(ids.slice());
-        for(const id of list){
-            if(stopFlag.stop) return;
-            const audio = document.getElementById(id);
-            if(!audio) continue;
-            audio.currentTime = 0;
-             console.log("Playing music:", id, "src:", audio.src); // << show which file
-			 
-			const fullPath = audio.src;
-			const fileName = fullPath.split('/').pop(); // takes last part after '/'
-			currentMusicPlaying.innerText = "Music: " + fileName;
+async function playPlaylist(phaseType, stopFlag) {
+    const mixLabel = (phaseType === 'work') ? document.getElementById('workMusicSelect').value : document.getElementById('relaxMusicSelect').value;
+    
+    const allMusic = Array.from(document.querySelectorAll('.music'));
+    const pool = allMusic.filter(audio => audio.getAttribute('label') === mixLabel);
 
-            await audio.play();
-            await new Promise(resolve => { audio.onended = resolve; });
-            await new Promise(resolve => setTimeout(resolve,2000));
+    if (pool.length === 0) {
+        currentMusicPlaying.innerText = "Music: None";
+        return;
+    }
+
+    while (!stopFlag.stop) {
+        const list = shuffle([...pool]);
+        for (const audio of list) {
+            if (stopFlag.stop) return;
+
+            audio.currentTime = 0;
+            audio.volume = 1; // Reset volume to full for the new song
+            currentMusicPlaying.innerText = "Music Mix [" + mixLabel + "]: " + audio.src.split('/').pop();
+
+            try {
+                await audio.play();
+            } catch (err) {
+                console.log("Playback blocked by OS, waiting for next song...");
+                continue; 
+            }
+
+            // Use a Promise that resolves if the song ends OR if the stopFlag is triggered
+            await new Promise(async resolve => {
+                audio.onended = resolve;
+                
+                // Check for stop flag frequently
+                const checkStop = setInterval(async () => {
+                    if (stopFlag.stop) {
+                        clearInterval(checkStop);
+                        await fadeOutAndStop(audio, 1000); // Fade out over 1 second
+                        resolve();
+                    }
+                }, 100);
+            });
         }
     }
 }
 
-// ==== load voice audio ===
 
-// Helpers
+
 function formatTime(seconds){
     return `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
 }
-
 async function loadVoiceAudios(selectedVoice) {
     voiceAudios = {};
-    const loadPromises = [];
+    if (selectedVoice === 'none') return;
 
-  // Define the voice audio types
-    const voiceEvents = ['begin','resume','pause','end'];
-    const cheers = ['active','resting'];
-
-    [...voiceEvents, ...cheers].forEach(prefix => {
+    const voiceEvents = ['begin', 'resume', 'pause', 'end', 'active', 'resting'];
+    for (const prefix of voiceEvents) {
         voiceAudios[prefix] = [];
-        for (let i = 1; i <= 4; i++) { // max 4 per type
-            const path = `audio/${selectedVoice}/${prefix}00${i}.mp3`;
+        for (let i = 1; i <= 4; i++) {
+             const path = `audio/voices/${selectedVoice}/${prefix}00${i}.mp3`;
             const audio = new Audio(path);
             voiceAudios[prefix].push(audio);
-
-            const p = new Promise(resolve => {
-                audio.addEventListener('canplaythrough', resolve, { once: true });
-                audio.addEventListener('error', () => {
-                    console.warn("Failed to load:", path);
-                    resolve(); // resolve anyway
-                }, { once: true });
-            });
-            loadPromises.push(p);
         }
-    });
-
-    console.log("Loading all audio...");
-    await Promise.all(loadPromises); // ✅ now allowed
-    console.log("All voice audios loaded.");
+    }
 }
 
-// Track session events
-let sessionEventList = [];
-let firedEvents = new Set(); // keep track of fired events
-
-// Build events for a single phase
 function buildPhaseEvents(phase, isFirstPhase) {
     const events = [];
-    const phaseSec = phase === "work" ? workMins*60 : restMins*60;
+    const phaseSec = phase === "work" ? workMins * 60 : restMins * 60;
+    let voiceDesc = (isFirstPhase && phase === "work") ? "begin" : (phase === "work" ? "resume" : "pause");
+    
+    events.push({ type: EventType.VOICE, time: 2, phase, description: voiceDesc });
+    events.push({ type: EventType.MUSIC, time: 1, phase, description: "start" });
+    events.push({ type: EventType.BELL, time: 0, phase, description: "bell" });
 
-   // 1. Voice at phase start
-let voiceDesc = "";
-if(isFirstPhase && phase === "work") {
-    voiceDesc = "begin voice";
-} else if(phase === "work") {
-    voiceDesc = "resume voice";
-} else if(phase === "rest") {
-    voiceDesc = "pause voice";
-}
-
-events.push({
-    type: EventType.VOICE,
-    time: 2, // after the bell
-    phase,
-    description: voiceDesc
-});
-
-    // 2. Music starts 1s before voice
-    events.push({
-        type: EventType.MUSIC,
-        time: 1,
-        phase,
-        description: `${phase} music start`
-    });
-
-    // 3. Bells every 60s, plus optional cheer
-	// bell at the beginning..
-	 events.push({
-            type: EventType.BELL,
-            time: 0,
-            phase,
-            description: "minute bell"
-        });
-    for(let t = 60; t <= phaseSec; t += 60){
-		if(t< (phaseSec-10))
-		{
-			events.push({
-				type: EventType.BELL,
-				time: t,
-				phase,
-				description: "minute bell"
-			});
-			events.push({
-				type: EventType.CHEER,
-				time: t+2,
-				phase,
-				description: phase==="work" ? "active cheer" : "resting cheer"
-			});
-		}else{
-			console.log("skipped bell and cheer, too close to next phase start");
-		}
+    for (let t = 60; t <= phaseSec; t += 60) {
+        if (t < (phaseSec - 10)) {
+            events.push({ type: EventType.BELL, time: t, phase, description: "bell" });
+            events.push({ type: EventType.CHEER, time: t + 2, phase, description: phase === "work" ? "active" : "resting" });
+        }
     }
-
     return events;
 }
 
-// Build full session event list
 function buildSessionEventList() {
     const allEvents = [];
     let totalTime = 0;
     let isFirstPhase = true;
-    const phaseOrder = ["work", "rest"];
-	let lastPhase = "work"; // keep track of the last phase
+    let lastPhase = "work";
 
-    while(totalTime < TotalMins*60){
-        for(const phase of phaseOrder){
-			lastPhase = phase;
+    while (totalTime < TotalMins * 60) {
+        for (const phase of ["work", "rest"]) {
+            lastPhase = phase;
             const phaseEvents = buildPhaseEvents(phase, isFirstPhase);
-            // shift to absolute time
             phaseEvents.forEach(e => e.time += totalTime);
             allEvents.push(...phaseEvents);
-
-            totalTime += phase === "work" ? workMins*60 : restMins*60;
+            totalTime += phase === "work" ? workMins * 60 : restMins * 60;
             isFirstPhase = false;
-            if(totalTime >= TotalMins*60) break;
+            if (totalTime >= TotalMins * 60) break;
         }
     }
-	
- // Add end voice at the very end of the session
-    allEvents.push({
-        type: EventType.VOICE,
-        time: TotalMins*60, // absolute end of session
-        phase: lastPhase,   // last phase played
-        description: "end voice"
-    });
-
-	
-
-    // Sort by absolute time for clarity
-    allEvents.sort((a,b) => a.time - b.time);
-    return allEvents;
+    allEvents.push({ type: EventType.VOICE, time: TotalMins * 60, phase: lastPhase, description: "end" });
+    return allEvents.sort((a, b) => a.time - b.time);
 }
 
-// === IN START BUTTON ===
 startBtn.addEventListener('click', async () => {
-
-	noSleep.enable();
-    console.log("NoSleep enabled — screen will stay awake");
-    workMins = parseInt(document.getElementById('workDuration').value,10);
-    restMins = parseInt(document.getElementById('restDuration').value,10);
-    TotalMins = parseInt(document.getElementById('totalDuration').value,10);
-
-    const selectedVoice = voiceSelect.value;
-    await loadVoiceAudios(selectedVoice);
-
-    // Build session event list here
+    noSleep.enable();
+	startBtn.style.display="none";
+	optionsFieldset.style.display="none";
+    workMins = parseInt(document.getElementById('workDuration').value, 10);
+    restMins = parseInt(document.getElementById('restDuration').value, 10);
+    TotalMins = parseInt(document.getElementById('totalDuration').value, 10);
+    
+    await loadVoiceAudios(voiceSelect.value);
+    
     sessionEventList = buildSessionEventList();
     firedEvents.clear();
-    console.log("Session events:", sessionEventList);
-
-    // Initialize state
     currentState = "work";
     phaseElapsed = 0;
     totalElapsed = 0;
-    sessionStarted= Date.now();
-    phaseStarted= Date.now();
+    sessionStarted = Date.now();
+    phaseStarted = Date.now();
     phaseDuration = workMins * 60;
     stateEl.innerText = "Active";
-
-    // Initialize progress bars
+	 mainFieldset.style.borderColor = "#b7cda4";
+	 optionsFieldset.style.borderColor = "#b7cda4";
     progressBar.style.width = '0%';
     totalProgressBar.style.width = '0%';
-
-    // Start animation loop
     requestAnimationFrame(animate);
 });
 
-function fireEvent(event)
-{
- // Play audio if event is a voice
- switch(event.type)
- {
-	case EventType.VOICE:
-    let prefix = "";
-    switch(event.description){
-        case "begin voice":
-            prefix = "begin"; break;
-        case "resume voice":
-            prefix = "resume"; break;
-        case "pause voice":
-            prefix = "pause"; break;
-        case "end voice":
-            prefix = "end"; break;
-        default:
-            prefix = "begin"; // fallback
-    }
-
-    // pick a random audio from the prefix array
-    const audios = voiceAudios[prefix];
-    if(audios && audios.length)
-	{
-        const index = Math.floor(Math.random() * audios.length);
-        audios[index].play();
-    }
-	break;
-	
-	case EventType.CHEER:
-
-    // pick a random audio from the cheer array
-	const cheerPrefix = (event.phase === "work") ? 'active' : 'resting';
-const cheerAudios = voiceAudios[cheerPrefix];
-
-if(cheerAudios && cheerAudios.length){
-    const index = Math.floor(Math.random() * cheerAudios.length);
-    const audioToPlay = cheerAudios[index];
-    console.log("Playing cheer audio:", audioToPlay.src);  // <- this shows the full path
-    audioToPlay.play();
-} else {
-    console.warn("No cheer audios found for prefix:", cheerPrefix);
-}
-
-    break;
-        case EventType.MUSIC:
-            let musicIds;
-            let musicEnabled;
-            if(event.phase === "work") {
-                musicIds = workMusicIds;
-                musicEnabled = document.getElementById('workMusic').checked;
-            } else {
-                musicIds = relaxMusicIds;
-                musicEnabled = document.getElementById('relaxMusic').checked;
-            }
-
-            if(musicEnabled) {
-                // stop previous music
-                if(currentMusicStopFlag) currentMusicStopFlag.stop = true;
-
-                // start new music
-				setMusicVolume(musicIds, 0.5); // start at half volume
-                currentMusicStopFlag = { stop: false };
-                playPlaylist(musicIds, currentMusicStopFlag);
-            }
+let firedEvents = new Set();
+function fireEvent(event) {
+    const phase = event.phase;
+    
+    switch (event.type) {
+        case EventType.VOICE:
+            if (voiceSelect.value === 'none') return;
+            const vAuds = voiceAudios[event.description];
+            if (vAuds && vAuds.length > 0) vAuds[Math.floor(Math.random() * vAuds.length)].play();
             break;
 
-	
-	
- case EventType.BELL:
-        // select the correct bell based on phase
-        let bellId = event.phase === "work" ? "work-bell" : "relax-bell";
-        const bellAudio = document.getElementById(bellId);
-        if(bellAudio){
-            bellAudio.currentTime = 0; // restart if already playing
-            bellAudio.play();
-        }
-        break;	
-	
-	default:
-	console.log("unknown event type: "+event.type)
- }
+        case EventType.CHEER:
+            if (voiceSelect.value === 'none') return;
+            const cPrefix = (phase === "work") ? 'active' : 'resting';
+            const cAuds = voiceAudios[cPrefix];
+            if (cAuds && cAuds.length > 0) cAuds[Math.floor(Math.random() * cAuds.length)].play();
+            break;
+
+        case EventType.MUSIC:
+            if (currentMusicStopFlag) currentMusicStopFlag.stop = true;
+            currentMusicStopFlag = { stop: false };
+            playPlaylist(phase === "work" ? 'work' : 'relax', currentMusicStopFlag);
+            break;
+
+         case EventType.BELL:
+            const sfxLabel = (phase === "work") ? document.getElementById('workBellSelect').value : document.getElementById('relaxBellSelect').value;
+            console.log("🔔 Attempting to ring bell for phase: " + phase + " | Label: " + sfxLabel);
+            
+            const allSfx = Array.from(document.querySelectorAll('.sfx'));
+            const bellAudio = allSfx.find(a => a.getAttribute('label') === sfxLabel);
+            
+            if (bellAudio) { 
+                console.log("✅ Audio element found: " + bellAudio.src);
+                bellAudio.currentTime = 0; 
+                bellAudio.play().then(() => {
+                    console.log("🔊 Bell played successfully!");
+                }).catch(err => {
+                    console.error("❌ Playback failed for " + sfxLabel + ":", err);
+                });
+            } else {
+                console.error("🚫 No audio element found with label: " + sfxLabel);
+            }
+            break;
+    }
 }
-
-
-// Settings toggle
 window.addEventListener('DOMContentLoaded', () => {
     const settingsDiv = document.getElementById('settings');
     const toggleIcon = document.getElementById('session-controls-minified');
-
-    settingsDiv.style.display = 'none';
-    toggleIcon.style.display = 'inline';
-
-    toggleIcon.addEventListener('click', () => {
-        if(settingsDiv.style.display === 'none'){
-            settingsDiv.style.display = 'block';
-            toggleIcon.textContent = '❌';
-        } else {
-            settingsDiv.style.display = 'none';
-            toggleIcon.textContent = '⚙️';
-        }
+   
+    optionsFieldset.addEventListener('click', () => {
+        const isHidden = settingsDiv.style.display === 'none';
+        settingsDiv.style.display = isHidden ? 'block' : 'none';
+        toggleIcon.textContent = isHidden ? '⮝' : '⮟';
+        
+        settingsDiv.addEventListener('click', (event) => {
+            event.stopPropagation(); 
+        });
     });
+
+    // --- ADD THIS PART FOR THE BELL PREVIEWS ---
+    const workBellSelect = document.getElementById('workBellSelect');
+    const relaxBellSelect = document.getElementById('relaxBellSelect');
+
+    const playPreview = (selectElement, phase) => {
+        const sfxLabel = selectElement.value;
+        if (sfxLabel === 'none') return;
+        
+        const allSfx = Array.from(document.querySelectorAll('.sfx'));
+        const bellAudio = allSfx.find(a => a.getAttribute('label') === sfxLabel);
+        if (bellAudio) {
+            bellAudio.currentTime = 0;
+            bellAudio.play();
+        }
+    };
+
+    workBellSelect.addEventListener('change', () => playPreview(workBellSelect, 'work'));
+    relaxBellSelect.addEventListener('change', () => playPreview(relaxBellSelect, 'rest'));
 });
 
-// === INSIDE ANIMATE() ===
-function animate(){
-    const totalElapsed = Math.floor((Date.now() - sessionStarted) / 1000);
-    const phaseElapsed = Math.floor((Date.now() - phaseStarted) / 1000);
 
-    // Update timers
-    const remainingPhase = Math.max(phaseDuration - phaseElapsed, 0);
-    timerEl.innerText = "phase: "+formatTime(remainingPhase);
+function animate() {
+    const tElapsed = Math.floor((Date.now() - sessionStarted) / 1000);
+    const pElapsed = Math.floor((Date.now() - phaseStarted) / 1000);
+    const remainingPhase = Math.max(phaseDuration - pElapsed, 0);
+    
+    timerEl.innerText = "phase: " + formatTime(remainingPhase);
     progressBar.style.width = `${100 * (phaseDuration - remainingPhase) / phaseDuration}%`;
+    const remainingTotal = Math.max(TotalMins * 60 - tElapsed, 0);
+    totaltimerEl.innerText = "session: " + formatTime(remainingTotal);
+    totalProgressBar.style.width = `${100 * (TotalMins * 60 - remainingTotal) / (TotalMins * 60)}%`;
 
-    const remainingTotal = Math.max(TotalMins * 60 - totalElapsed, 0);
-    totaltimerEl.innerText = "session: "+formatTime(remainingTotal);
-    totalProgressBar.style.width = `${100 * (TotalMins*60 - remainingTotal) / (TotalMins*60)}%`;
-
-    // Fire events if due
     sessionEventList.forEach(event => {
-        if(totalElapsed >= event.time && !firedEvents.has(event)){
-            console.log(`EVENT: [${event.type}] ${event.description} @${event.time}s`);
-            debugLastEventEl.innerText = `EVENT: [${event.type}] ${event.description}`;
+        if (tElapsed >= event.time && !firedEvents.has(event)) {
             firedEvents.add(event);
-			
-			// now actually do it..
-			fireEvent(event);
-			
-			
+            fireEvent(event);
         }
     });
 
-    // Detect beginning/resume/pause (optional)
-    let currentEvent = null;
-    if(totalElapsed === 0) currentEvent = "begin";
-    else if(currentState === "work" && phaseElapsed === 0 && totalElapsed > 0) currentEvent = "resume";
-    else if(currentState === "rest" && phaseElapsed === 0) currentEvent = "pause";
-
-    if(currentEvent && currentEvent !== lastEvent){
-        debugLastEventEl.innerText = `EVENT: ${currentEvent}`;
-        console.log("EVENT:", currentEvent);
-        lastEvent = currentEvent;
+   if (pElapsed >= phaseDuration) {
+    if (tElapsed >= TotalMins * 60) {
+        currentState = "done";
+        stateEl.innerText = "Done";
+        mainFieldset.style.borderColor = 'var(--accent-primary)'; // Reset to original color
+		optionsFieldset.style.borderColor = 'var(--accent-primary)'; // Reset to original color
+        return;
     }
-
-    // Phase transition
-    if(phaseElapsed >= phaseDuration){
-        if(totalElapsed >= TotalMins*60){
-            currentState = "done";
-            stateEl.innerText = "Done";
-            timerEl.innerText = "00:00";
-            progressBar.style.width = "100%";
-            totalProgressBar.style.width = "100%";
-            debugLastEventEl.innerText = "EVENT: end";
-            console.log("EVENT: end");
-            return;
-        }
-
-        if(currentState === "work"){
-            currentState = "rest";
-            phaseDuration = restMins * 60;
-            stateEl.innerText = "Resting";
-        } else if(currentState === "rest"){
-            currentState = "work";
-            phaseDuration = workMins * 60;
-            stateEl.innerText = "Active";
-        }
-
-        phaseStarted = Date.now();
-    }
-
-	let targetVolume = 0.5;
-
-	if(remainingPhase <= 10){
-		targetVolume = 0.5 * (remainingPhase / 10); // linear fade from 1 → 0.5
-		// Apply fade to all music
-		console.log("fading music: "+targetVolume);
-		setMusicVolume(workMusicIds.concat(relaxMusicIds), targetVolume);
-	}
+    currentState = (currentState === "work") ? "rest" : "work";
+    phaseDuration = (currentState === "work") ? workMins * 60 : restMins * 60;
+    
+    // Update Text
+    stateEl.innerText = (currentState === "work") ? "Active" : "Resting";
+    
+    // Update Border Color
+    mainFieldset.style.borderColor = (currentState === "work") ? "#b7cda4" : "#c48e81";
+    
+    phaseStarted = Date.now();
+}
 
 
-
-
-    if(currentState !== "done") requestAnimationFrame(animate);
+    if (currentState !== "done") requestAnimationFrame(animate);
 }
 </script>
-
-
-
 </body>
 </html>
