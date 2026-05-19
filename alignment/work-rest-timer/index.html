@@ -146,6 +146,14 @@ input, select {
 <fieldset id="optionsFieldset" style="border-color:var(--accent-secondary);color:var(--accent-secondary);">
   <legend><span id="session-controls-minified" style="cursor:pointer;">⮟ <span style="opacity: 0.5; font-size: 0.5em;">(click to open)</span> </span>Options</legend>
   <div id="settings" style="display:none; width:100%;">
+  <!-- Add this inside your settings div or at the bottom of optionsFieldset -->
+<div id="installContainer" style="display:none; margin-top: 20px; text-align: center;">
+    <button id="installBtn" style="background: var(--accent-primary); font-size: 1rem; padding: 10px 20px; width: auto;">
+        Install App to Home Screen
+    </button>
+</div>
+
+  
     <div class="control-row"><label>Total Session (min):</label><input type="number" id="totalDuration" value="120"></div>
     <div class="control-row"><label>Work duration (min):</label><input type="number" id="workDuration" value="10"></div>
     <div class="control-row"><label>Rest duration (min):</label><input type="number" id="restDuration" value="5"></div>
@@ -322,6 +330,60 @@ if (libDiv) {
 } else {
     console.error("Error: Element with id 'lib' not found in the HTML.");
 }
+   </script>
+   <script>
+   // 1. Global variable to store the event
+let deferredPrompt;
+
+// 2. Listen for the browser's "ready to install" event
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the default mini-infobar from appearing
+    e.preventDefault();
+    
+    // Stash the event so we can trigger it later
+    deferredPrompt = e;
+    
+    // Show the install button in your UI
+    const installContainer = document.getElementById('installContainer');
+    if (installContainer) {
+        installContainer.style.display = 'block';
+    }
+    
+    console.log("✅ PWA: Install prompt captured and button shown.");
+});
+
+// 3. The function that actually triggers the installation
+async function handleInstallClick() {
+    if (!deferredPrompt) {
+        alert("Installation is not available at this moment.");
+        return;
+    }
+
+    // Show the system install prompt
+    deferredPrompt.prompt();
+
+    // Wait for the user to respond
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`✅ PWA: User responded to install prompt: ${outcome}`);
+
+    // We can only use the prompt once, so clear it
+    deferredPrompt = null;
+    
+    // Hide the button again
+    const installContainer = document.getElementById('installContainer');
+    if (installContainer) {
+        installContainer.style.display = 'none';
+    }
+}
+
+// 4. Attach the function to your button
+document.addEventListener('DOMContentLoaded', () => {
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) {
+        installBtn.addEventListener('click', handleInstallClick);
+    }
+});
+
    </script>
     <script>
         // --- Zen Background Integration ---
