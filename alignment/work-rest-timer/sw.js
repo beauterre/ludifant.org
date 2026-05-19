@@ -9,7 +9,8 @@ const urlsToCache = [
   // icon files
   "./img/icon-192.png",
   "./img/icon-512.png",
-
+  
+  
   // audio files
   './audio/music/work/work-music001.mp3',
   './audio/music/work/work-music002.mp3',
@@ -98,6 +99,9 @@ const urlsToCache = [
   './audio/voices/none/resting002.mp3',
   './audio/voices/none/resting003.mp3',
   './audio/voices/none/resting004.mp3' 
+
+
+  
 ];
 
 self.addEventListener('install', event => {
@@ -114,6 +118,41 @@ self.addEventListener('install', event => {
     })
   );
 });
+
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
+  if (url.pathname.endsWith('.mp3')) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(async (cache) => {
+        const cachedResponse = await caches.match(event.request);
+        if (cachedResponse) return cachedResponse;
+
+        // FORCE a full response instead of a partial one
+        // We do this by creating a new request and removing the 'Range' header
+        const response = await fetch(event.request);
+        
+        if (response.status === 206) {
+          // If we got a partial, we try to fetch it again without range headers
+          // Most servers will then send the whole file (200 OK)
+          const fullResponse = await fetch(event.request.url); 
+          if (fullResponse.status === 200) {
+            cache.put(event.request, fullResponse.clone());
+            return fullResponse;
+          }
+        } else if (response.status === 200) {
+          cache.put(event.request, response.clone());
+        }
+        
+        return response;
+      })
+    );
+    return;
+  }
+
+});
+
+/* //normally it would be..
 
 self.addEventListener('fetch', event => {
   event.respondWith(
@@ -135,4 +174,4 @@ self.addEventListener('fetch', event => {
       return cachedResponse || fetchPromise;
     })
   );
-});
+});*/
