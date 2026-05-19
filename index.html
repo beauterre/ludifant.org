@@ -7,7 +7,7 @@
 <style>
   body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f4f2;  }
 header { 
-  background: #e8e6df; /* Very light warm grey */
+  background: rgba(239,237,233,0.4); /* Very light warm grey */
   color: #565752;      /* Dark grey text */
   padding: 0.8rem; 
   text-align: center; 
@@ -60,6 +60,11 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
     background-size: cover;
     background-position: center;
     color: #fff;
+		/* Hide all cards by default */
+	.card {
+	  display: none; 
+	}
+
   }
 
   .card:hover { transform: translateY(-5px); }
@@ -131,6 +136,8 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
   font-style: italic; /* Optional: gives it a gentle, thoughtful tone */
 }
 </style>
+    <!-- Import the script -->
+    <script src="lib/zenback.js"></script>
 </head>
 <body>
 <!-- English -->
@@ -154,26 +161,32 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
 
 
 
-    <div class="card" style="background-image:url('journey.png')"> 
+    <div class="card" label="travel" style="background-image:url('journey.png')"> 
       <h2>Journey..</h2>
       <p>... to the temple of the Bald, Wise men.</p>
       <a href="/journey">Enter Journey</a>
     </div>
 
-    <div class="card" style="background-image:url('alignment.png')">
+    <div class="card" label="alignment" style="background-image:url('alignment.png')">
       <h2>Alignment</h2>
       <p>Calming visuals and sounds. Master Ludifant's lectures and aforisms.</p>
       <a href="alignment/alignment-index.html#language=english">Enter Alignment</a>
     </div>
 
-    <div class="card" style="background-image:url('rosetta.png')">
+<div class="card" label="hjalmar-map" style="background-image:url('journey.png')"> 
+    <h2>Where is Hjalmar?</h2>
+    <p>Follow the current trace. A real-time map of movements, discoveries, and coordinates.</p>
+    <a href="/where-is-hjalmar">Track Movement</a>
+</div>
+
+    <div class="card"  label="rosetta" style="background-image:url('rosetta.png')">
       <h2>Rosetta</h2>
       <p>Learn the languages of Carabas. 
 	  Explore alphabets, pronunciation, and cultural deep dives.</p>
       <a href="/rosetta">Enter Rosetta</a>
     </div>
 
-    <div class="card" style="background-image:url('awareness.png')">
+    <div class="card" label="awareness" style="background-image:url('awareness.png')">
        
       <h2>Awareness</h2>
       <p>Daily minigames, meditative and satisfying.
@@ -181,7 +194,7 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
       <a href="/awareness">Explore Awareness</a>
     </div>
 
-    <div class="card" style="background-image:url('habits.png')">
+    <div class="card" label="habits" style="background-image:url('habits.png')">
        
       <h2>Habits</h2>
       <p>Track mental wealth. 
@@ -191,23 +204,23 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
 
 
 <!-- Anxiety / Emotional Regulation --> 
-	<div class="card" style="background-image:url('anxiety.png')">
+	<div class="card" label="anxiety" style="background-image:url('anxiety.png')">
 		<h2>Anxiety & Resilience</h2> 
 		<p>Softening anxieties, managing stress, and developing emotional resilience</p> 
 		<a href="/anxiety">Explore Anxiety Tools</a> 
 	</div> 
 <!-- Memory & Cognition --> 
-	<div class="card" style="background-image:url('perception.png')">
+	<div class="card" label="perception" style="background-image:url('perception.png')">
 		<h2>Memory & Cognition</h2> 
 		<p>Memory training, focus exercises, pattern recognition, and critical thinking modules designed to enhance mental performance.</p> 
 		<a href="/memory">Explore Memory</a>
 	</div> 
-<!-- Support 
-<div class="card" style="background-image:url('support.png')">
+
+<div class="card" label="support" style="background-image:url('support.png')">
   <h2>Join In!</h2> 
   <p>Support this site by buying a T-shirt, donating, translating, or creating content.</p> 
   <a href="/support">Join In</a> 
-</div>-->
+</div>
 
   </main>
 
@@ -235,33 +248,39 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
   </p>
 </div>
 
-    <div class="card" style="background-image:url('journey.png')"> 
+    <div class="card" label="journey" style="background-image:url('journey.png')"> 
       <h2>Reis..</h2>
       <p>Naar de tempel van de Kale Wijzen</p>
       <a href="/journey">Start Reis</a>
     </div>
 
-    <div class="card" style="background-image:url('alignment.png')">
+    <div class="card" label="alignment" style="background-image:url('alignment.png')">
       <h2>Afstemming</h2>
       <p>Rustgevende beelden en geluiden. De gelukskoekjes en tegeltjes van meester Ludifant.</p>
       <a href="alignment/alignment-index.html#language=dutch">Start Afstemming</a>
     </div>
 
-    <div class="card" style="background-image:url('rosetta.png')">
+<div class="card" label="hjalmar-map" style="background-image:url('journey.png')"> 
+    <h2>Waar is Hjalmar?</h2>
+    <p>Volg de huidige route. Een real-time kaart van bewegingen, ontdekkingen en coördinaten.</p>
+    <a href="/where-is-hjalmar">Volg Route</a>
+</div>
+
+    <div class="card" label="rosetta" style="background-image:url('rosetta.png')">
       <h2>Rosetta</h2>
       <p>Leer de talen van Carabas met Lingling. 
       Verken alfabetten, uitspraak en culturele verdieping.</p>
       <a href="/rosetta">Start Rosetta</a>
     </div>
 
-    <div class="card" style="background-image:url('awareness.png')">
+    <div class="card" label="awareness" style="background-image:url('awarenessawareness.png')">
       <h2>Bewustzijn</h2>
       <p>Dagelijkse minigames, meditatief en bevredigend.
       Verken je geest en je waarneming.</p>
       <a href="/awareness">Verken Bewustzijn</a>
     </div>
 
-    <div class="card" style="background-image:url('habits.png')">
+    <div class="card" label="habits" style="background-image:url('habits.png')">
       <h2>Mentale Rijkdom</h2>
       <p>Volg je mentale rijkdom. 
       Voed behulpzame gewoonten en verminder onproductieve.</p>
@@ -270,23 +289,23 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
 
 
 <!-- Anxiety / Emotional Regulation --> 
-	<div class="card" style="background-image:url('anxiety.png')">
+	<div class="card" label="anxiety" style="background-image:url('anxiety.png')">
 		<h2>Angsten & Veerkracht</h2> 
 		<p>Verzacht angsten, manage stress, en ontwikkel emotionele veerkracht</p> 
 		<a href="/anxiety">Reduceer Angst</a> 
 	</div> 
 <!-- Memory & Cognition --> 
-	<div class="card"  style="background-image:url('perception.png')">
+	<div class="card" label="perception"  style="background-image:url('perception.png')">
 		<h2>Geheugen & Cognitie</h2> 
 		<p>Geheugentraining, concentratie-oefeningen, patroonherkenning en  kritisch denken modules ontworpen om je mentale kracht te vergroten.</p> 
 		<a href="/memory">Explore Memory</a>
 	</div> 
-<!-- Support 
-	<div class="card"  style="background-image:url('support.png')">
+
+	<div class="card" label="support"  style="background-image:url('support.png')">
 		<h2>Doe mee!</h2> 
 		<p>Steun deze site door het T-shirt te kopen, te doneren, te vertalen of content te maken.</p> 
 		<a href="/support">Meedoen</a>
-	</div> --> 
+	</div>
 
   </main>
 
@@ -314,33 +333,40 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
   </p>
 </div>
 
-    <div class="card" style="background-image:url('journey.png')"> 
+    <div class="card" label="journey" style="background-image:url('journey.png')"> 
       <h2>Matka</h2>
       <p>Lähde ohjatulle retkelle ja seuraa Tipin seikkailua pelissä.</p>
       <a href="/journey">Aloita Matka</a>
     </div>
 
-    <div class="card" style="background-image:url('alignment.png')">
+    <div class="card" label="alignment" style="background-image:url('alignment.png')">
       <h2>Yhdenmukaisuus</h2>
       <p>Rauhoittavia kuvia ja ääniä. Hallitse Ludifantin luentoja ja aforismeja.</p>
       <a href="alignment/alignment-index.html#language=finnish">Aloita Yhdenmukaisuus</a>
     </div>
 
-    <div class="card" style="background-image:url('rosetta.png')">
+<div class="card" label="hjalmar-map" style="background-image:url('journey.png')"> 
+    <h2>Missä Hjalmar on?</h2>
+    <p>Seuraa nykyistä reittiä. Reaaliaikainen kartta liikkeistä, löydöistä ja koordinaateista.</p>
+    <a href="/where-is-hjalmar">Seuraa Reittiä</a>
+</div>
+
+
+    <div class="card" label="rosetta" style="background-image:url('rosetta.png')">
       <h2>Rosetta</h2>
       <p>Opi Carabasin kielet. 
       Tutki aakkosia, ääntämistä ja kulttuurisia syväsukelluksia.</p>
       <a href="/rosetta">Aloita Rosetta</a>
     </div>
 
-    <div class="card" style="background-image:url('awareness.png')">
+    <div class="card" label="awareness" style="background-image:url('awareness.png')">
       <h2>Tietoisuus</h2>
       <p>Päivittäisiä minipelejä, meditatiivisia ja tyydyttäviä. 
       Tutki mieltäsi ja havaintokykyäsi.</p>
       <a href="/awareness">Tutki Tietoisuutta</a>
     </div>
 
-    <div class="card" style="background-image:url('habits.png')">
+    <div class="card" label="habits" style="background-image:url('habits.png')">
       <h2>Tavat</h2>
       <p>Seuraa henkistä varallisuuttasi. 
       Ruoki hyödyllisiä tapoja ja heikennä hyödyttömiä.</p>
@@ -348,25 +374,25 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
     </div>
 
 <!-- Anxiety / Emotional Regulation --> 
-<div class="card" style="background-image:url('anxiety.png')">
+<div class="card" label="anxiety" style="background-image:url('anxiety.png')">
   <h2>Ahdistus & Resilienssi</h2> 
   <p>Pehmennä ahdistusta, hallitse stressiä ja kehitä tunne-resilienssiä</p> 
   <a href="/anxiety">Tutki Ahdistustyökaluja</a> 
 </div> 
 
 <!-- Memory & Cognition --> 
-<div class="card" style="background-image:url('perception.png')">
+<div class="card" label="perception" style="background-image:url('perception.png')">
   <h2>Muisti & Kognitio</h2> 
   <p>Muistiharjoituksia, keskittymistä, kuvioiden tunnistamista ja kriittisen ajattelun moduuleja mielen suorituskyvyn parantamiseksi.</p> 
   <a href="/memory">Tutki Muistia</a>
 </div> 
 
-<!-- Support
-<div class="card" style="background-image:url('support.png')">
+
+<div class="card" label="support" style="background-image:url('support.png')">
   <h2>Osallistu!</h2> 
   <p>Tue tätä sivustoa ostamalla t-paita, lahjoittamalla, kääntämällä tai luomalla sisältöä.</p> 
   <a href="/support">Osallistu</a> 
-</div> -->
+</div> 
 
   </main>
 
@@ -396,33 +422,40 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
 </div>
 
 
-    <div class="card" style="background-image:url('journey.png')"> 
+    <div class="card" label="journey" style="background-image:url('journey.png')"> 
       <h2>Пътуване</h2>
       <p>Започни ръководена обиколка, следвайки приключението на Тип в играта.</p>
       <a href="/journey">Влез в Пътуване</a>
     </div>
 
-    <div class="card" style="background-image:url('alignment.png')">
+    <div class="card" label="alignment" style="background-image:url('alignment.png')">
       <h2>Синхрон</h2>
       <p>Успокояващи визуализации и звуци. Овладей лекциите и афоризмите на Ludifant.</p>
       <a href="alignment/alignment-index.html#language=bulgarian">Влез в Синхрон</a>
     </div>
 
-    <div class="card" style="background-image:url('rosetta.png')">
+<div class="card" label="hjalmar-map" style="background-image:url('journey.png')"> 
+    <h2>Къде е Хялмар?</h2>
+    <p>Следете текущия маршрут. Карта в реално време на движения, открития и координати.</p>
+    <a href="/where-is-hjalmar">Следи Пътя</a>
+</div>
+
+
+    <div class="card" label="rosetta" style="background-image:url('rosetta.png')">
       <h2>Розета</h2>
       <p>Научи езиците на Карабас. 
       Изследвай азбуките, произношението и културните дълбочини.</p>
       <a href="/rosetta">Влез в Розета</a>
     </div>
 
-    <div class="card" style="background-image:url('awareness.png')">
+    <div class="card" label="awareness" style="background-image:url('awareness.png')">
       <h2>Осъзнатост</h2>
       <p>Ежедневни миниигри, медитативни и удовлетворяващи. 
       Изследвай ума си и възприятието си.</p>
       <a href="/awareness">Изследвай Осъзнатост</a>
     </div>
 
-    <div class="card" style="background-image:url('habits.png')">
+    <div class="card" label="habits" style="background-image:url('habits.png')">
       <h2>Навици</h2>
       <p>Следи умственото си богатство. 
       Подхранвай полезните навици и отслабвай непродуктивните.</p>
@@ -430,25 +463,25 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
     </div>
 
 <!-- Anxiety / Emotional Regulation --> 
-<div class="card" style="background-image:url('anxiety.png')">
+<div class="card" label="anxiety" style="background-image:url('anxiety.png')">
   <h2>Тревожност & Издръжливост</h2> 
   <p>Успокояване на тревожността, управление на стреса и развитие на емоционална издръжливост</p> 
   <a href="/anxiety">Изследвай инструментите за тревожност</a> 
 </div> 
 
 <!-- Memory & Cognition --> 
-<div class="card" style="background-image:url('perception.png')">
+<div class="card" label="perception" style="background-image:url('perception.png')">
   <h2>Памет & Когниция</h2> 
   <p>Упражнения за памет, фокус, разпознаване на модели и критическо мислене за подобряване на умствената производителност.</p> 
   <a href="/memory">Изследвай паметта</a>
 </div> 
 
-<!-- Support 
-<div class="card" style="background-image:url('support.png')">
+
+<div class="card" label="support" style="background-image:url('support.png')">
   <h2>Присъедини се!</h2> 
   <p>Подкрепете този сайт, като закупите тениска, дарите, преведете или създадете съдържание.</p> 
   <a href="/support">Присъедини се</a> 
-</div>-->
+</div>
 
   </main>
 
@@ -477,33 +510,39 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
   </p>
 </div>
 
-    <div class="card" style="background-image:url('journey.png')"> 
+    <div class="card" label="journey" style="background-image:url('journey.png')"> 
       <h2>Reise..</h2>
       <p>Zum Tempel der Kahlen Weisen</p>
       <a href="/journey">Reise starten</a>
     </div>
 
-    <div class="card" style="background-image:url('alignment.png')">
+    <div class="card" label="alignment" style="background-image:url('alignment.png')">
       <h2>Abstimmung</h2>
       <p>Beruhigende Bilder und Klänge. Meistere Ludifants Vorträge und Aphorismen.</p>
       <a href="alignment/alignment-index.html#language=german">Abstimmung starten</a>
     </div>
 
-    <div class="card" style="background-image:url('rosetta.png')">
+<div class="card" label="hjalmar-map" style="background-image:url('journey.png')"> 
+    <h2>Wo ist Hjalmar?</h2>
+    <p>Folge der aktuellen Spur. Eine Echtzeit-Karte von Bewegungen, Entdeckungen und Koordinaten.</p>
+    <a href="/where-is-hjalmar">Route verfolgen</a>
+</div>
+
+    <div class="card" label="rosetta" style="background-image:url('rosetta.png')">
       <h2>Rosetta</h2>
       <p>Lerne die Sprachen von Carabas. 
       Erkunde Alphabete, Aussprache und kulturelle Vertiefungen.</p>
       <a href="/rosetta">Rosetta starten</a>
     </div>
 
-    <div class="card" style="background-image:url('awareness.png')">
+    <div class="card" label="awareness" style="background-image:url('awareness.png')">
       <h2>Bewusstsein</h2>
       <p>Tägliche Minispiele, meditativ und erfüllend.
       Erkunde deinen Geist und deine Wahrnehmung.</p>
       <a href="/awareness">Bewusstsein erkunden</a>
     </div>
 
-    <div class="card" style="background-image:url('habits.png')">
+    <div class="card" label="habits" style="background-image:url('habits.png')">
       <h2>Mentale Stärke</h2>
       <p>Verfolge dein mentales Wohlbefinden. 
       Fördere hilfreiche Gewohnheiten und reduziere unproduktive.</p>
@@ -511,24 +550,24 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
     </div>
 
     <!-- Anxiety / Emotional Regulation --> 
-    <div class="card" style="background-image:url('anxiety.png')">
+    <div class="card" label="anxiety" style="background-image:url('anxiety.png')">
       <h2>Angst & Resilienz</h2> 
       <p>Ängste mildern, Stress managen und emotionale Resilienz entwickeln</p> 
       <a href="/anxiety">Angst-Tools erkunden</a> 
     </div> 
 
     <!-- Memory & Cognition --> 
-    <div class="card" style="background-image:url('perception.png')">
+    <div class="card" label="perception" style="background-image:url('perception.png')">
       <h2>Gedächtnis & Kognition</h2> 
       <p>Gedächtnistraining, Konzentrationsübungen, Mustererkennung und kritisches Denken zur Verbesserung der mentalen Leistungsfähigkeit.</p> 
       <a href="/memory">Gedächtnis erkunden</a>
     </div> 
-<!-- Support 
-<div class="card" style="background-image:url('support.png')">
-  <h2>Mitmachen!</h2> 
-  <p>Unterstütze diese Seite, indem du ein T-Shirt kaufst, spendest, übersetzt oder Inhalte erstellst.</p> 
-  <a href="/support">Mitmachen</a> 
-</div>-->
+
+	<div class="card" label="support" style="background-image:url('support.png')">
+	  <h2>Mitmachen!</h2> 
+	  <p>Unterstütze diese Seite, indem du ein T-Shirt kaufst, spendest, übersetzt oder Inhalte erstellst.</p> 
+	  <a href="/support">Mitmachen</a> 
+	</div>
   </main>
 
   <footer>
@@ -555,33 +594,40 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
   </p>
 </div>
 
-    <div class="card" style="background-image:url('journey.png')"> 
+    <div class="card" label="journey" style="background-image:url('journey.png')"> 
       <h2>Voyage..</h2>
       <p>Vers le temple des Sages Chauves</p>
       <a href="/journey">Commencer le voyage</a>
     </div>
 
-    <div class="card" style="background-image:url('alignment.png')">
+    <div class="card" label="alignment" style="background-image:url('alignment.png')">
       <h2>Alignement</h2>
       <p>Images et sons apaisants. Maîtrisez les conférences et aphorismes de Ludifant.</p>
       <a href="alignment/alignment-index.html#language=french">Commencer l’alignement</a>
     </div>
+	
+	<div class="card" label="hjalmar-map" style="background-image:url('journey.png')"> 
+    <h2>Où est Hjalmar ?</h2>
+    <p>Suivez la trace actuelle. Une carte en temps réel des mouvements, des découvertes et des coordonnées.</p>
+    <a href="/where-is-hjalmar">Suivre le Tracé</a>
+	</div>
 
-    <div class="card" style="background-image:url('rosetta.png')">
+
+    <div class="card" label="rosetta" style="background-image:url('rosetta.png')">
       <h2>Rosetta</h2>
       <p>Apprenez les langues de Carabas. 
       Explorez les alphabets, la prononciation et les approfondissements culturels.</p>
       <a href="/rosetta">Commencer Rosetta</a>
     </div>
 
-    <div class="card" style="background-image:url('awareness.png')">
+    <div class="card" label="awareness" style="background-image:url('awareness.png')">
       <h2>Conscience</h2>
       <p>Mini-jeux quotidiens, méditatifs et satisfaisants.
       Explorez votre esprit et votre perception.</p>
       <a href="/awareness">Explorer la conscience</a>
     </div>
 
-    <div class="card" style="background-image:url('habits.png')">
+    <div class="card" label="habits" style="background-image:url('habits.png')">
       <h2>Habitudes mentales</h2>
       <p>Suivez votre richesse mentale. 
       Nourrissez les habitudes utiles et réduisez les improductives.</p>
@@ -589,25 +635,24 @@ header p { margin: 0.2rem 0 0; font-size: 0.8rem; color: #777; }
     </div>
 
 <!-- Anxiety / Emotional Regulation --> 
-<div class="card" style="background-image:url('anxiety.png')">
+<div class="card" label="anxiety" style="background-image:url('anxiety.png')">
   <h2>Anxiété & Résilience</h2> 
   <p>Atténuer les anxiétés, gérer le stress et développer la résilience émotionnelle</p> 
   <a href="/anxiety">Explorer les outils d’anxiété</a> 
 </div> 
 
 <!-- Memory & Cognition --> 
-<div class="card" style="background-image:url('perception.png')">
+<div class="card" label="perception" style="background-image:url('perception.png')">
   <h2>Mémoire & Cognition</h2> 
   <p>Entraînement de la mémoire, exercices de concentration, reconnaissance de motifs et pensée critique pour améliorer les performances mentales.</p> 
   <a href="/memory">Explorer la mémoire</a> 
 </div> 
 
-<!-- Support 
-<div class="card" style="background-image:url('support.png')">
+<div class="card" label="support" style="background-image:url('support.png')">
   <h2>Participez !</h2> 
   <p>Soutenez ce site en achetant un t-shirt, en faisant un don, en traduisant ou en créant du contenu.</p> 
   <a href="/support">Participer</a> 
-</div>-->
+</div>
 
 
   </main>
@@ -710,6 +755,42 @@ const langMap = {
     s.style.display = (s.getAttribute('language') === currentLang) ? 'block' : 'none';
   });
 </script>
+
+ <script>
+        // Usage Example:
+        // Color: Sage Green {r:130, g:192, b:128}, Seed: 12345
+		var seed=Math.floor(Math.random()*12345);
+        createZenBack({r:255, g:250, b:242}, seed);
+		document.getElementById("seed").innerHTML="seed: "+seed;
+    </script>
+	 <script>
+	// --- CARD VISIBILITY CONTROL ---
+
+// 1. The "Switch": Only labels in this array will be visible.
+// Add or remove labels here to control what the user sees.
+const visibleCards = ['hjalmar-map', 'alignment']; // add cards here to show.
+
+// 2. Debug Mode: Set to true to ignore the list and show EVERYTHING
+const debugMode = false; 
+
+function updateCardVisibility() {
+  const allCards = document.querySelectorAll('.card');
+  
+  allCards.forEach(card => {
+    const label = card.getAttribute('label');
+    
+    if (debugMode || visibleCards.includes(label)) {
+      // We use 'flex' because your original CSS used display: flex for the card layout
+      card.style.display = 'flex'; 
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+// Run the visibility check immediately
+updateCardVisibility();
+    </script>
+
 <script>
 
   // Account button
