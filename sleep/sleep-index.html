@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep – Ludifant.org</title>
+<style>
+  :root {
+    /* Deep Night Zen Palette */
+    --alignment-primary: #4a565a; /* Muted Slate Blue-Grey */
+    --alignment-dark: #2c3639;    /* Deep Charcoal Sage */
+    --alignment-light: #eef2f3;   /* Very pale cool grey-blue */
+    --text-main: #344144;         /* Soft dark slate */
+    --text-muted: #6b7a7d;        /* Muted grey-blue */
+  }
+
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background: var(--alignment-light); color: var(--text-main); }
+  
+  header { 
+    background: var(--alignment-primary); 
+    color: #fff; 
+    padding: 1rem; 
+    text-align: center; 
+    position: relative; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .backBtn { 
+    position: absolute; 
+    top: 1rem; 
+    left: 1rem; 
+    padding: 0.5rem 1rem; 
+    background: rgba(255,255,255,0.15); 
+    color: white; 
+    text-decoration: none; 
+    border-radius: 6px; 
+    font-size: 0.9rem; 
+    backdrop-filter: blur(5px);
+    transition: background 0.3s;
+  }
+  .backBtn:hover { background: rgba(255,255,255,0.3); }
+
+  main { padding: 2rem; display: flex; flex-direction: column; align-items: center; }
+
+  .hero { text-align: center; max-width: 800px; margin-bottom: 3rem; }
+  .hero h1 { font-style: italic; font-weight: normal; font-size: 1.8rem; color: var(--alignment-dark); }
+  .hero p { line-height: 1.6; color: var(--text-muted); margin-top: 1rem; }
+
+  .app-grid { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 1.5rem; 
+    justify-content: center; 
+    max-width: 1000px;
+  }
+
+  .card {
+    position: relative;
+    width: 160px; 
+    height: 160px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+  .card h2 { 
+    margin: 0; 
+    font-size: 1rem; 
+    color: #fff; 
+    z-index: 2; 
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+  
+  .card p { 
+    margin: 0.5rem 0 0 0; 
+    font-size: 0.75rem; 
+    color: rgba(255,255,255,0.9); 
+    line-height: 1.3; 
+    z-index: 2;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    transition: opacity 0.8s;
+    z-index: 1;
+  }
+
+  footer { text-align: center; padding: 4rem 2rem; color: #8a9496; font-size: 0.85rem; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+  <header>
+    <a href="../index.html" class="backBtn" id="backLink">← Back</a>
+    <h1 id="headerTitle">Sleep</h1>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1 id="heroMantra">"Silence is the sleep that binds the soul to peace"</h1>
+      <p id="heroText">Surrender to the rhythm of the night. Tools designed to guide you into a deep, restorative slumber.</p>
+    </div>
+
+    <div class="app-grid" id="appGrid"></div>
+  </main>
+
+  <footer id="footerText">
+    &copy; 2025 Ludifant.org – Tools for growth and self-discovery, open to all.
+  </footer>
+
+<script>
+  const langData = {
+    english: {
+      title: "Sleep",
+      mantra: '"Silence is the sleep that binds the soul to peace"',
+      hero: "Surrender to the rhythm of the night. Tools designed to guide you into a deep, restorative slumber.",
+      footer: "Tools for growth and self-discovery, open to all.",
+      back: "← Back",
+      apps: [
+        { name: "Tala", desc: "Shamanistic drumming and droning.", url: "tala/index.html", img: "tala.jpg" },
+        { name: "Night Echoes", desc: "Guide into restorative sleep.", url: "/sleep-noise/", img: "sleep.jpg" },
+        { name: "Inner Silence", desc: "Journey into your own stillness.", url: "/inner-silence/", img: "silence.jpg" },
+        { name: "Serene Bells", desc: "Gentle tones to clear the mind.", url: "/serene-bells/", img: "bells.jpg" },
+        { name: "Rhythm of Rest", desc: "Balance productivity and recovery.", url: "work-rest-timer/index.html", img: "work-rest-timer/img/icon-192.png" }
+      ]
+    },
+    dutch: {
+      title: "Slaap",
+      mantra: '"Stilte is de slaap die de ziel aan vrede bindt"',
+      hero: "Geef je over aan het ritme van de nacht. Tools ontworpen om je naar een diepe, herstellende slaap te leiden.",
+      footer: "Tools voor groei en zelfontdekking, open voor iedereen.",
+      back: "← Terug",
+      apps: [
+        { name: "Tala", desc: "Sjamanistisch trommelen en drones.", url: "tala/index.html", img: "tala.jpg" },
+        { name: "Nachtecho's", desc: "Begeleiding naar een herstellende slaap.", url: "/sleep-noise/", img: "sleep.jpg" },
+        { name: "Innerlijke Stilte", desc: "Een reis naar je eigen stilte.", url: "/inner-silence/", img: "silence.jpg" },
+        { name: "Serene Klokken", desc: "Zachte tonen om de geest te klaren.", url: "/serene-bells/", img: "bells.jpg" },
+        { name: "Rustritme", desc: "Balans tussen productiviteit en herstel.", url: "work-rest-timer/index.html", img: "work-rest-timer/img/icon-192.png" }
+      ]
+    },
+    german: {
+      title: "Schlaf",
+      mantra: '"Stille ist der Schlaf, der die Seele mit dem Frieden verbindet"',
+      hero: "Übergeben Sie sich dem Rhythmus der Nacht. Werkzeuge, die Sie in einen tiefen, erholsamen Schlaf führen.",
+      footer: "Werkzeuge für Wachstum und Selbsterkenntnis, offen für alle.",
+      back: "← Zurück",
+      apps: [
+        { name: "Tala", desc: "Schamanisches Trommeln und Drohnen.", url: "tala/index.html", img: "tala.jpg" },
+        { name: "Nachtechos", desc: "Begleitung in einen erholsamen Schlaf.", url: "/sleep-noise/", img: "sleep.jpg" },
+        { name: "Innere Stille", desc: "Eine Reise in Ihre eigene Stille.", url: "/inner-silence/", img: "silence.jpg" },
+        { name: "Serene Glocken", desc: "Sanfte Töne zur Klärung des Geistes.", url: "/serene-bells/", img: "bells.jpg" },
+        { name: "Ruherhythmus", desc: "Balance zwischen Produktivität und Erholung.", url: "work-rest-timer/index.html", img: "work-rest-timer/img/icon-192.png" }
+      ]
+    },
+    finnish: {
+      title: "Uni",
+      mantra: '"Hiljaisuus on unta, joka sitoo sielun rauhaan"',
+      hero: "Anna itsesi mennä yön rytmin mukana. Työkaluja, jotka ohjaavat sinut syvään ja palauttavaan uneen.",
+      footer: "Kasvun ja itsetutkimuksen työkaluja, avoinna kaikille.",
+      back: "← Takaisin",
+      apps: [
+        { name: "Tala", desc: "Samanistista rumputusta ja dronea.", url: "tala/index.html", img: "tala.jpg" },
+        { name: "Yön Kaiut", desc: "Opas palauttavaan uneen.", url: "/sleep-noise/", img: "sleep.jpg" },
+        { name: "Sisäinen Hiljaisuus", desc: "Matka omaan hiljaisuuteesi.", url: "/inner-silence/", img: "silence.jpg" },
+        { name: "Tyynen Kellot", desc: "Lempeitä sävelsyitä mielen kirkastamiseen.", url: "/serene-bells/", img: "bells.jpg" },
+        { name: "Levon Rytmi", desc: "Tasapaino tuottavuuden ja palautumisen välillä.", url: "work-rest-timer/index.html", img: "work-rest-timer/img/icon-192.png" }
+      ]
+    },
+    french: {
+      title: "Sommeil",
+      mantra: '"Le silence est le sommeil qui lie l\'âme à la paix"',
+      hero: "Abandonnez-vous au rythme de la nuit. Des outils conçus pour vous guider vers un sommeil profond et réparateur.",
+      footer: "Outils de croissance et de découverte de soi, ouverts à tous.",
+      back: "← Retour",
+      apps: [
+        { name: "Tala", desc: "Tambours chamaniques et bourdons.", url: "tala/index.html", img: "tala.jpg" },
+        { name: "Échos Nocturnes", desc: "Guide vers un sommeil réparateur.", url: "/sleep-noise/", img: "sleep.jpg" },
+        { name: "Silence Intérieur", desc: "Voyage vers votre propre calme.", url: "/inner-silence/", img: "silence.jpg" },
+        { name: "Cloches Sereines", desc: "Tons doux pour éclaircir l'esprit.", url: "/serene-bells/", img: "bells.jpg" },
+        { name: "Rythme du Repos", desc: "Équilibre entre productivité et récupération.", url: "work-rest-timer/index.html", img: "work-rest-timer/img/icon-192.png" }
+      ]
+    },
+    bulgarian: {
+      title: "Сън",
+      mantra: '"Тишината е сънят, който свързва душата с мира"',
+      hero: "Потопете се в ритъма на нощта. Инструменти, създадени да ви поведат към дълбок и възстановяващ сън.",
+      footer: "Инструменти за растеж и себепознание, отворени за всички.",
+      back: "← Назад",
+      apps: [
+        { name: "Тала", desc: "Шамански барабани и дронове.", url: "tala/index.html", img: "tala.jpg" },
+        { name: "Нощни Ехо", desc: "Вод към възстановяващ сън.", url: "/sleep-noise/", img: "sleep.jpg" },
+        { name: "Вътрешна Тишина", desc: "Пътуване към собствената ви тишина.", url: "/inner-silence/", img: "silence.jpg" },
+        { name: "Спокойни Камбани", desc: "Нежни тонове за изчистване на ума.", url: "/serene-bells/", img: "bells.jpg" },
+        { name: "Ритъм на Почивката", desc: "Баланс между продуктивност и възстановяване.", url: "work-rest-timer/index.html", img: "work-rest-timer/img/icon-192.png" }
+      ]
+    }
+  };
+
+  let currentLang = 'english';
+  const hash = window.location.hash;
+  if (hash) {
+    const match = hash.match(/language=([^&]+)/);
+    if (match && match[1]) {
+      currentLang = match[1];
+    }
+  }
+  
+  const data = langData[currentLang] || langData.english;
+
+  document.getElementById('headerTitle').textContent = data.title;
+  document.getElementById('heroMantra').textContent = data.mantra;
+  document.getElementById('heroText').textContent = data.hero;
+  document.getElementById('footerText').innerHTML = `&copy; 2025 Ludifant.org – ${data.footer}`;
+  document.getElementById('backLink').textContent = data.back;
+  document.getElementById('backLink').href = `../index.html#language=${currentLang}`;
+
+  // Zen Sleep Palette (Greys, Sage Greens, Blueish Tones)
+  const alignmentPalette = [
+    "#4a565a", // Muted Slate
+    "#6b7a7d", // Steel Blue-Grey
+    "#5e6b63", // Deep Sage
+    "#8a9496", // Silver Mist
+    "#3d4a4d", // Dark Graphite Blue
+    "#aeb8b9", // Pale Ash
+  ];
+
+  const grid = document.getElementById('appGrid');
+  data.apps.forEach((app, index) => {
+    const color = alignmentPalette[index % alignmentPalette.length];
+    
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.backgroundImage = `url('${app.img}')`;
+    
+    const light = document.createElement('div');
+    light.className = 'overlay light';
+    light.style.backgroundColor = color + 'ee'; 
+    light.style.mixBlendMode = 'lighten'; 
+    
+    const dark = document.createElement('div');
+    dark.className = 'overlay dark';
+    dark.style.backgroundColor = color + '88'; 
+    dark.style.mixBlendMode = 'darken'; 
+
+    card.appendChild(light);
+    card.appendChild(dark);
+    
+    const h2 = document.createElement('h2');
+    h2.textContent = app.name;
+    const p = document.createElement('p');
+    p.textContent = app.desc;
+
+    card.appendChild(h2);
+    card.appendChild(p);
+
+    card.addEventListener('click', () => { window.location.href = app.url; });
+    card.addEventListener('mouseenter', () => {
+      light.style.opacity = '0';
+      dark.style.opacity = '0';
+    });
+    card.addEventListener('mouseleave', () => {
+      light.style.opacity = '1';
+      dark.style.opacity = '1';
+    });
+
+    grid.appendChild(card);
+  });
+</script>
+</body>
+</html>
