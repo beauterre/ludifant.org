@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypnotic Frequency Field & Relative Motion</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #05050f;
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+        }
+        canvas {
+            display: block;
+            /* Initial value, will be updated via JS */
+            filter: contrast(1.2) brightness(1.1);
+        }
+        #audio-prompt {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="audio-prompt">CLICK TO BEGIN EXPERIENCE</div>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const prompt = document.getElementById('audio-prompt');
+
+        let width, height;
+        let audioCtx, brownNoiseSource, filterNode;
+        let audioStarted = false;
+        
+        let particles = [];
+        const PARTICLE_COUNT = 150;
+        const GLOBAL_BIAS = 1.0;
+
+        let rings = [];
+        const RING_COUNT = 12;
+        const MAX_DISTANCE_FROM_CENTER = 450;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function initAudio() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const sampleRate = audioCtx.sampleRate;
+            const duration = 2.0; 
+            const bufferSize = sampleRate * duration;
+            const buffer = audioCtx.createBuffer(1, bufferSize, sampleRate);
+            const data = buffer.getChannelData(0);
+            let lastOut = 0.0;
+            for (let i = 0; i < bufferSize; i++) {
+                const white = Math.random() * 2 - 1;
+                data[i] = (lastOut + (0.02 * white)) / 1.02;
+                lastOut = data[i];
+                data[i] *= 3.5; 
+            }
+            brownNoiseSource = audioCtx.createBufferSource();
+            brownNoiseSource.buffer = buffer;
+            brownNoiseSource.loop = true;
+            filterNode = audioCtx.createBiquadFilter();
+            filterNode.type = 'lowpass';
+            filterNode.frequency.value = 400;
+            filterNode.Q.value = 1;
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.value = 0.5;
+            brownNoiseSource.connect(filterNode);
+            filterNode.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            brownNoiseSource.start();
+            audioStarted = true;
+        }
+
+        prompt.addEventListener('click', () => {
+            initAudio();
+            prompt.style.display = 'none';
+        });
+
+        class Particle {
+            constructor() { this.init(); }
+            init() {
+                this.baseFreq = 0.5 + Math.random() * 1.5;
+                this.phaseOffset = Math.random() * Math.PI * 2;
+                this.a = 1 + Math.random() * 2; 
+                this.b = 1 + Math.random() * 2;
+                this.amplitudeX = (width * 0.4) + Math.random() * 100;
+                this.amplitudeY = (height * 0.4) + Math.random() * 100;
+                this.baseRadius = 60 + Math.random() * 90;
+                this.color = `hsla(${190 + Math.random() * 100}, 70%, 10%,`; 
+            }
+            draw(time, globalBias) {
+                const currentFreq = (this.baseFreq + globalBias) / 2;
+                const angle = 2 * Math.PI * currentFreq * time + this.phaseOffset;
+                const x = width / 2 + Math.sin(angle * this.a) * this.amplitudeX;
+                const y = height / 2 + Math.sin(angle * this.b) * this.amplitudeY;
+                const x_freq = 380 + 250 * Math.sin(time * 4 / (angle || 1)); 
+                const y_freq = 380 + 250 * Math.sin(time * 5 / (angle || 1)); 
+                const pulse = (2 + Math.sin(x / x_freq + time * 2) + Math.sin(y / y_freq + time * 3)) / 4; 
+                const radius = this.baseRadius * (1 + 2.5 * pulse);
+                const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+                gradient.addColorStop(0, `${this.color} 0.6)`);
+                gradient.addColorStop(1, `${this.color} 0)`);
+                ctx.beginPath();
+                ctx.fillStyle = gradient;
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function drawLines(time) {
+            ctx.globalCompositeOperation = 'multiply';
+            ctx.strokeStyle = 'rgba(10, 10, 30, 0.06)'; 
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 25; i++) {
+                ctx.beginPath();
+                for (let x = -10; x <= width; x += 30) {
+                    const wave1 = Math.sin(x * 0.006 + time * 1.5 + i/5) * 80;
+                    const wave2 = Math.sin(x * 0.007 - time * 0.3 + i/6) * 70;
+                    let y = (height / 2) + wave1 + wave2 + (i * 20 - 280);
+                    const x_freq = 380 + 250 * Math.sin(time * 0.2); 
+                    const y_freq = 380 + 250 * Math.sin(time * 0.25); 
+                    const pulse = (2 + Math.sin(x / x_freq + time * 2) + Math.sin(y / y_freq + time * 3)) / 4;
+                    const offsetX = Math.sin(pulse * Math.PI) * 145;
+                    const offsetY = Math.cos(pulse * Math.PI) * 145;
+                    if (x === 0) ctx.moveTo(x, y + offsetY);
+                    else ctx.lineTo(x, y + offsetY);
+                }
+                ctx.stroke();
+            }
+        }
+
+        class Ring {
+            constructor(id, isAnchor = false) {
+                this.id = id;
+                this.isAnchor = isAnchor;
+                if (this.isAnchor) { this.baseRadius = 50 + Math.random() * 30; } 
+                else { this.baseRadius = 25 + Math.random() * 10; }
+                this.visualRadius = this.baseRadius;
+                this.x = width / 2;
+                this.y = height / 2;
+                this.weight = isAnchor ? 100 : (Math.random() > 0.8 ? 10 : 1);
+                this.parent = null;
+                this.hasInner = Math.random() < 0.3;
+                this.innerAngle = Math.random() * Math.PI * 2;
+                this.innerAngleSpeed = Math.sin(Math.random() * Math.PI * 2) * 0.1;
+                this.innerAngleRadius = 1.1 + Math.random() * 0.5;
+                this.angle = Math.random() * Math.PI * 2;
+                this.speed = 0;
+                this.currentOrbitDist = 0; 
+                this.pulseFreq = this.isAnchor ? 0.08 : (0.05 + Math.random() * 0.1);
+                this.pulsePhase = Math.random() * Math.PI * 2;
+
+                if (!this.isAnchor) {
+                    const startAngle = Math.random() * Math.PI * 2;
+                    const startDist = 50 + Math.random() * 150;
+                    this.x = (width / 2) + Math.cos(startAngle) * startDist;
+                    this.y = (height / 2) + Math.sin(startAngle) * startDist;
+                }
+            }
+
+            update(allRings, realTime) {
+                let pulseAmplitude = this.isAnchor ? 0.55 : 0.15;
+                const linearAngle = 2 * Math.PI * this.pulseFreq * realTime + this.pulsePhase;
+                const warp = Math.sin(linearAngle) * 0.5; 
+                const warpedAngle = linearAngle + warp;
+                const sineVal = Math.sin(warpedAngle);
+                this.visualRadius = this.baseRadius * (1 + pulseAmplitude * sineVal);
+
+                if (this.isAnchor) {
+                    // Link audio and visual contrast to the呼吸 anchor
+                    if (audioStarted) {
+                        const freq = 450 + (sineVal * 350);
+                        filterNode.frequency.setTargetAtTime(freq, audioCtx.currentTime, 0.1);
+                        
+                        // Map sineVal (-1 to 1) to Contrast (1.2 to 4.2)
+                        // (sineVal + 1) ranges from 0 to 2. 
+                        // Multiply by 1.5 to get 0 to 3, then add 1.2.
+                        const currentContrast = 1.2 + ((sineVal + 1) * 1.5);
+                        canvas.style.filter = `contrast(${currentContrast.toFixed(2)}) brightness(1.1)`;
+                    }
+                }
+
+                if (this.isAnchor) return;
+
+                const distFromCenter = Math.hypot(this.x - width / 2, this.y - height / 2);
+                if (distFromCenter > MAX_DISTANCE_FROM_CENTER) {
+                    this.switchParent(allRings, true);
+                }
+
+                if (this.parent) {
+                    this.angle += this.speed;
+                    const targetDist = this.visualRadius + this.parent.visualRadius;
+                    this.currentOrbitDist += (targetDist - this.currentOrbitDist) * 0.1;
+                    this.x = this.parent.x + Math.cos(this.angle) * this.currentOrbitDist;
+                    this.y = this.parent.y + Math.sin(this.angle) * this.currentOrbitDist;
+                    if (Math.random() < 0.0015) this.switchParent(allRings);
+                } else {
+                    this.switchParent(allRings);
+                }
+            }
+
+            switchParent(allRings, forceAnchor = false) {
+                const candidates = allRings.filter(r => r.id !== this.id);
+                if (forceAnchor) { this.parent = allRings[0]; } 
+                else {
+                    const weightedPool = [];
+                    candidates.forEach(c => {
+                        for (let i = 0; i < c.weight; i++) weightedPool.push(c);
+                    });
+                    this.parent = weightedPool[Math.floor(Math.random() * weightedPool.length)];
+                }
+                const dx = this.x - this.parent.x;
+                const dy = this.y - this.parent.y;
+                this.currentOrbitDist = Math.hypot(dx, dy);
+                this.angle = Math.atan2(dy, dx);
+                this.speed = (Math.random() * 0.02) + 0.003;
+                if (Math.random() > 0.5) this.speed *= -1;
+            }
+
+            draw() {
+                ctx.strokeStyle = 'rgba(235, 240, 255, 0.36)'; 
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.visualRadius, 0, Math.PI * 2);
+                ctx.stroke();
+                if(this.hasInner) {
+                    this.innerAngle += this.innerAngleSpeed;
+                    const offsetDist = this.visualRadius * (1 - this.innerAngleRadius); 
+                    const offsetX = Math.cos(this.innerAngle) * offsetDist;
+                    const offsetY = Math.sin(this.innerAngle) * offsetDist;
+                    ctx.beginPath();
+                    ctx.arc(this.x + offsetX, this.y + offsetY, this.visualRadius * this.innerAngleRadius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+        const anchor = new Ring(0, true);
+        rings.push(anchor);
+        for (let i = 1; i < RING_COUNT; i++) rings.push(new Ring(i));
+
+        function animate() {
+            const bgTime = Date.now() / 200000; 
+            const realTime = Date.now() / 1000;
+            const globalWave = Math.sin(2 * Math.PI * 0.2 * bgTime); 
+            ctx.clearRect(0, 0, width, height);
+            ctx.save();
+            ctx.translate(width / 2, height / 2);
+            ctx.scale(1 + globalWave * 0.02, 1 + globalWave * 0.02);
+            ctx.translate(-width / 2, -height / 2);
+            ctx.globalCompositeOperation = 'screen'; 
+            particles.forEach(p => p.draw(bgTime, GLOBAL_BIAS));
+            drawLines(bgTime * 20);
+            ctx.globalCompositeOperation = 'screen';
+            rings.forEach(r => r.update(rings, realTime));
+            rings.forEach(r => r.draw());
+            ctx.restore();
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
